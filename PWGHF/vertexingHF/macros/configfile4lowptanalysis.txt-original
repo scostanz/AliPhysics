@@ -1,17 +1,17 @@
 InputFiles:
-    DataFile: ~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/LHC2018_AOD208_bdefghijklmnop/23nov/AnalysisResults.root
-    SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/LHC18l4b/23nov/AnalysisResults.root	
-    SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
-    AcceptanceFile: ~/alice/D0_pp13TeV/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
+    DataFile: DataTrains/AnalysisResults18qr_trains1445-1444.root
+    SuffixData: 010V0M_Pt400_SPDany_3SigPIDnSigmaTuned_FidY
+    MCFile: MCtrains/AnalysisResults18qr_LHC19c3a_train1084.root
+    SuffixMC: OnlySig_010V0M_CosThSt_Pt400_SPDany_3SigPID_FidY
+    AcceptanceFile: Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_FONLL5ptshape.root
     Meson: Dzero
 
 PtBins:
     NumOfPtBins: 14
     BinLimits: [ 0.,0.5,1.,1.5,2.,2.5,3.,3.5,4.,5.,6.,7.,8.,10.,12. ]
-    Rebin: [ 10,7,10,9,8,7,8,8,9,10,10,12,12,12 ]
-    MinFit: [ 1.78,1.76,1.76,1.76,1.76,1.76,1.76,1.76,1.74,1.74,1.72,1.72,1.72,1.72 ]
-    MaxFit: [ 1.94,1.94,1.94,1.96,1.96,1.96,1.96,1.98,1.98,1.98,2.00,2.02,2.04,2.04 ]
+    Rebin: [ 4,4,6,6,6,6,7,8,9,10,10,12,12,12 ]
+    MinFit: [ 1.76,1.76,1.76,1.76,1.76,1.76,1.76,1.76,1.74,1.74,1.72,1.72,1.72,1.72 ]
+    MaxFit: [ 1.94,1.94,1.94,1.94,1.94,1.96,1.96,1.98,1.98,1.98,2.00,2.02,2.04,2.04 ]
 
 SigmaConfiguration:
     FixSigmaConf: 1
@@ -32,8 +32,8 @@ BackgroundOptions:
     RenormalizeLS: 1
     SmoothLS: 0
     TryDirectFit: 1
-    MinSBFit: [ 1.78,1.76,1.76,1.76,1.76,1.76,1.76,1.74,1.74,1.74,1.72,1.72,1.72,1.72 ]
-    MaxSBFit: [ 1.94,1.94,1.94,1.96,1.96,1.96,1.96,1.98,1.98,1.98,2.00,2.02,2.04,2.04 ]
+    MinSBFit: [ 1.76,1.76,1.76,1.76,1.76,1.74,1.74,1.72,1.72,1.72,1.72,1.72,1.72,1.72 ]
+    MaxSBFit: [ 1.94,1.94,1.94,1.94,1.94,1.96,1.96,1.98,1.98,1.98,2.00,2.00,2.00,2.00 ]
     PolDegreeSB: [ 4,4,4,4,4,4,4,4,4,4,4,4,4,2 ]
 
 FitConfiguration:
@@ -41,8 +41,8 @@ FitConfiguration:
     BackgroundFunction: 2
     PolDegreeFit: [ 3,3,2,2,2,2,2,2,2,2,2,2,2,2 ]
     CorrectForReflections: 1
-    ReflectionOption: templ
-    ReflOverSignalModif: 1
+    ReflectionOption: 2gaus
+    ReflOverSignalModif: 1.
     BackgroundFuncOptionForBinCount: 1
     NumOfSigmaForBinCount: 4.
     

@@ -19,9 +19,13 @@ enum EPtWei{kFONLL5overLHC13d3,kFONLL7overLHC10f7a,kFONLL7overLHC10f6a,kFLATover
 enum EPtBWei{kFONLL5overLHC19c3,kNoPtBWei};
 
 TString configFileName="configfile4lowptanalysis.txt";
+TString fileName="";
+TString suffixData="";
 TString fileNameMC="";
 TString suffix="";
 TString fileNameToy="";
+TString meson="Dzero";
+TString dataset="LHC2016";
 
 const Int_t maxPtBins=30;
 Int_t nPtBins=8;
@@ -29,8 +33,8 @@ Double_t binLims[maxPtBins+1]={0.,1.,2.,3.,4.,5.,6.,8.,12.};
 Int_t ptcol[maxPtBins]={1,kRed+1,kRed,kGreen+2,kCyan,4,kOrange+2,kMagenta,kMagenta+2,kBlue+1,kGray,kGray+2,kGreen,kYellow+7};
 
 Int_t ptWeight=kNoWei;
-Int_t ptBWeight=kFONLL5overLHC19c3;
-Bool_t useMultWeight=kTRUE;
+Int_t ptBWeight=kNoPtBWei;//kFONLL5overLHC19c3;
+Bool_t useMultWeight=kFALSE;//kTRUE;
 Double_t maxMult=-1;//200;
 
 TH1F* hAccToyFine=0x0;
@@ -58,7 +62,6 @@ void ComputeEfficiencyFromCombinHF(){
       }
     }
   }
-
   // multiplicity weights
   TString fileWeightName="trackletsWeightsMultInt_LHC13d3_08092014.root";
   TString histoWeightName[3];
@@ -81,7 +84,6 @@ void ComputeEfficiencyFromCombinHF(){
       hWeight[iw]->SetMinimum(0.);
     }
   }
-
 
   // pt weights  
   if(ptWeight==kFONLL5overLHC13d3){
@@ -123,6 +125,7 @@ void ComputeEfficiencyFromCombinHF(){
     return;
   }
   TList* l=(TList*)df->Get(lstName.Data());
+  if (!l) cout << "ERROR" << endl;
 
 
   // aceptance from toy MC
@@ -144,7 +147,8 @@ void ComputeEfficiencyFromCombinHF(){
   hAccToyFine->SetLineColor(kGreen+2);
 
 
-  TFile* out=new TFile(Form("outputEff%s.root",suffix.Data()),"recreate");
+  TFile* out=new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/outputEff%s.root",dataset.Data(),suffix.Data()),"recreate");
+  //  TFile* out=new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/outputEff%s.root",dataset.Data(),suffix.Data()),"recreate");
   hAccToy->Write();
   out->Close();
 
@@ -256,7 +260,8 @@ void ComputeEfficiencyFromCombinHF(){
     hRatioZvEv->SetMinimum(0.85);
     hRatioZvEv->SetMaximum(1.01);
     hRatioZvEv->Draw();
-    cev->SaveAs(Form("figures/FracEvSel%s.eps",suffix.Data()));
+    cev->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/figures/FracEvSel%s.pdf",dataset.Data(),suffix.Data()));
+    //    cev->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/figures/FracEvSel%s.pdf",dataset.Data(),suffix.Data()));
   }
   
   ComputeAndWriteEff(l,"Prompt","Mult");
@@ -265,8 +270,10 @@ void ComputeEfficiencyFromCombinHF(){
   }else{
     ComputeAndWriteEff(l,"Feeddw","PtB");
   }
+
   
-  TFile* outup=new TFile(Form("outputEff%s.root",suffix.Data()),"update");
+  TFile* outup=new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/outputEff%s.root",dataset.Data(),suffix.Data()),"update");
+  //  TFile* outup=new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/outputEff%s.root",dataset.Data(),suffix.Data()),"update");
   outup->ls();
   TH1D* hEffPr=(TH1D*)outup->Get("hEffPromptVsPtNoWeight");
   TH1D* hEffFd=(TH1D*)outup->Get("hEffFeeddwVsPtNoWeight");
@@ -374,7 +381,8 @@ void ComputeEfficiencyFromCombinHF(){
   hRatioEff->GetYaxis()->SetTitle("Ratio efficiency feeddown/prompt");
   hRatioEff->GetYaxis()->SetTitleOffset(1.3);
   hRatioEff->DrawCopy();
-  cpf->SaveAs(Form("figures/EfficVsPt_PromptFd_%s.eps",suffix.Data()));
+  cpf->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/figures/EfficVsPt_PromptFd_%s.pdf",dataset.Data(),suffix.Data()));
+  //  cpf->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/figures/EfficVsPt_PromptFd_%s.pdf",dataset.Data(),suffix.Data()));
 
   outup->cd();  
   hEffD->Write();
@@ -569,7 +577,8 @@ void ComputeAndWriteEff(TList* l, TString dCase, TString var3){
   TLatex* t3=new TLatex(6.,0.15,"Reco / GenAcc");
   t3->SetTextColor(4);
   t3->Draw();
-  c1e->SaveAs(Form("figures/EfficVsPt_%s_%s.eps",suffix.Data(),dCase.Data()));
+  c1e->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/figures/EfficVsPt_%s_%s.pdf",dataset.Data(),suffix.Data(),dCase.Data()));
+  //  c1e->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/figures/EfficVsPt_%s_%s.pdf",dataset.Data(),suffix.Data(),dCase.Data()));
 
   TH1D* hVar3RecoAllPt=hPtVsYVsVar3Reco->ProjectionZ(Form("hVar3Reco%s",dCase.Data()));
   TH1D* hVar3GenAccAllPt=hPtVsYVsVar3GenAcc->ProjectionZ(Form("hVar3GenAcc%s",dCase.Data()));
@@ -703,7 +712,8 @@ void ComputeAndWriteEff(TList* l, TString dCase, TString var3){
   hEffVsVar3AllPt->SetLineColor(4);
   hEffVsVar3AllPt->Draw("same");
   t3->Draw();
-  c2e->SaveAs(Form("figures/EfficVs%s_%s_%s.eps",var3.Data(),suffix.Data(),dCase.Data()));
+  c2e->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/figures/EfficVs%s_%s_%s.pdf",dataset.Data(),var3.Data(),suffix.Data(),dCase.Data()));
+  //  c2e->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/figures/EfficVs%s_%s_%s.pdf",dataset.Data(),var3.Data(),suffix.Data(),dCase.Data()));
 
   if(var3=="Mult"){
   
@@ -758,8 +768,9 @@ void ComputeAndWriteEff(TList* l, TString dCase, TString var3){
     funcPtWeight->GetXaxis()->SetTitle("p_{T} (GeV/c)");
     funcPtWeight->GetYaxis()->SetTitle("Weight");
     funcPtWeight->Draw();
-    cwp->SaveAs(Form("figures/EfficVsPtMultBins_%s_%s.eps",suffix.Data(),dCase.Data()));
-  
+    cwp->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/figures/EfficVsPtMultBins_%s_%s.pdf",dataset.Data(),suffix.Data(),dCase.Data()));
+    //    cwp->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/figures/EfficVsPtMultBins_%s_%s.pdf",dataset.Data(),suffix.Data(),dCase.Data()));
+      
     TH1D* hMultReco[nPtBins];
     TH1D* hMultGenAcc[nPtBins];
     //  TH1D* hMultGenLimAcc[nPtBins];
@@ -838,7 +849,8 @@ void ComputeAndWriteEff(TList* l, TString dCase, TString var3){
       }
       legw->Draw();
     }
-    cw->SaveAs(Form("figures/Effic%sVsMultPtBins_%s.eps",dCase.Data(),suffix.Data()));
+    cw->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/figures/Effic%sVsMultPtBins_%s.pdf",dataset.Data(),dCase.Data(),suffix.Data()));
+    //    cw->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/figures/Effic%sVsMultPtBins_%s.pdf",dataset.Data(),dCase.Data(),suffix.Data()));
   }else{
     TCanvas* cwb=new TCanvas("cwb",Form("%s - ptB weight",dCase.Data()),800,800);
     funcPtBWeight->SetTitle("");
@@ -1073,7 +1085,8 @@ void ComputeAndWriteEff(TList* l, TString dCase, TString var3){
     hRatio[0]->SetMinimum(0.95);
     hRatio[0]->SetMaximum(1.05);
     for(Int_t iw=1;iw<3; iw++) hRatio[iw]->Draw("same");
-    ceff->SaveAs(Form("figures/Effic%sWithMultWeights%s.eps",dCase.Data(),suffix.Data()));
+    ceff->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/figures/Effic%sWithMultWeights%s.pdf",dataset.Data(),dCase.Data(),suffix.Data()));
+    //    ceff->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/figures/Effic%sWithMultWeights%s.pdf",dataset.Data(),dCase.Data(),suffix.Data()));
 
     TCanvas* ceff2=new TCanvas(Form("ceff2%s",dCase.Data()),Form("%s - Eff Mult+Pt wei",dCase.Data()),1200,600);
     ceff2->Divide(2,1);
@@ -1105,7 +1118,8 @@ void ComputeAndWriteEff(TList* l, TString dCase, TString var3){
     hRatioPtW[0]->SetMinimum(0.95);
     hRatioPtW[0]->SetMaximum(1.05);
     for(Int_t iw=1;iw<3; iw++) hRatioPtW[iw]->Draw("same");
-    ceff2->SaveAs(Form("figures/Effic%sWithMultAndPtWeights%s.eps",dCase.Data(),suffix.Data()));
+    ceff2->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/figures/Effic%sWithMultAndPtWeights%s.pdf",dataset.Data(),dCase.Data(),suffix.Data()));
+    //    ceff2->SaveAs(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/figures/Effic%sWithMultAndPtWeights%s.pdf",dataset.Data(),dCase.Data(),suffix.Data()));
   }else{
     hpteffPtBWeight->SetMarkerStyle(21);
     hpteffPtBWeight->SetMarkerColor(kRed+1);
@@ -1144,7 +1158,8 @@ void ComputeAndWriteEff(TList* l, TString dCase, TString var3){
     hRatioPtB->Draw();
   }
   
-  TFile* out=new TFile(Form("outputEff%s.root",suffix.Data()),"update");
+  TFile* out=new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/PID_cuts/%s/outputEff%s.root",dataset.Data(),suffix.Data()),"update");
+  //  TFile* out=new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/%s/outputEff%s.root",dataset.Data(),suffix.Data()),"update");
   hEffVsPtR->Write();
   hpteffNoWeight->Write();
   hpteffMultWeight[0]->Write();
@@ -1158,7 +1173,6 @@ void ComputeAndWriteEff(TList* l, TString dCase, TString var3){
   out->Close();
 
 }
-
 
 Bool_t ReadConfig(TString configName){
   FILE* confFil=fopen(configName.Data(),"r");

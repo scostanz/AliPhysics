@@ -21,7 +21,7 @@
 
 enum Method{kME,kRot,kLS,kSB};
 
-TString configFileName="configfile4lowptanalysis.txt";
+TString configFileName="configfile4lowptanalysis_reb.txt";
 
 // input files and pt binning
 TString fileName="";
@@ -118,14 +118,11 @@ AliHFInvMassFitter* ConfigureFitter(TH1D* histo, Int_t iPtBin, Int_t backcase, D
     hMCReflPtBin->SetLineColor(kGray+1);
     hMCReflPtBin->Draw("same");
     hReflModif->Draw("same");
-    //    cTest->SaveAs(Form("figures/cTest%d.pdf",iPtBin));
-    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/LHC2016/templ/NoPID_Pt400/cTest%d.pdf",iPtBin));
-    //    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/LHC2017/templ/NoPID_Pt400/cTest%d.pdf",iPtBin));
-    //    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/LHC2018/templ/NoPID_Pt400/cTest%d.pdf",iPtBin));
-//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/all/templ/NoPID_Pt400/cTest%d.pdf",iPtBin));
-//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/all/templ_x2/cTest%d.pdf",iPtBin));
-//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/all/templ_x05/cTest%d.pdf",iPtBin));
-//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/all/norefl/cTest%d.pdf",iPtBin));
+    //    cTest->SaveAs(Form("figures_reb/cTest%d.pdf",iPtBin));
+    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures_reb/LHC2016/templ/freeSigma/cTest%d.pdf",iPtBin));
+//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures_reb/LHC2017/templ/freeSigma/cTest%d.pdf",iPtBin));
+//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures_reb/LHC2018/templ/freeSigma/cTest%d.pdf",iPtBin));
+//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures_reb/all/templ/freeSigma/cTest%d.pdf",iPtBin));
     delete hmasstemp;
     cout << "=========== refl integral: " << hReflModif->Integral(hReflModif->FindBin(minFit*1.0001),hReflModif->FindBin(maxFit*0.999)) << endl;
     Double_t fixSoverRefAt=rOverSmodif*(hReflModif->Integral(hReflModif->FindBin(minFit*1.0001),hReflModif->FindBin(maxFit*0.999))/hSigModif->Integral(hSigModif->FindBin(minFit*1.0001),hSigModif->FindBin(maxFit*0.999)));
@@ -133,14 +130,11 @@ AliHFInvMassFitter* ConfigureFitter(TH1D* histo, Int_t iPtBin, Int_t backcase, D
     cTest->cd(2);
     hReflModif->Draw();
     hrfl->Draw("same");
-    //    cTest->SaveAs(Form("figures/ReflectionConfig_PtBin%d.pdf",iPtBin));
-    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/LHC2016/templ/NoPID_Pt400/ReflectionConfig_PtBin%d.pdf",iPtBin));
-    //    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/LHC2017/templ/NoPID_Pt400/ReflectionConfig_PtBin%d.pdf",iPtBin));
-    //    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/LHC2018/templ/NoPID_Pt400/ReflectionConfig_PtBin%d.pdf",iPtBin));
-//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/all/templ/NoPID_Pt400/ReflectionConfig_PtBin%d.pdf",iPtBin));
-//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/all/templ_x2/ReflectionConfig_PtBin%d.pdf",iPtBin));
-//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/all/templ_x05/ReflectionConfig_PtBin%d.pdf",iPtBin));
-//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures/all/norefl/ReflectionConfig_PtBin%d.pdf",iPtBin));
+    //    cTest->SaveAs(Form("figures_reb/ReflectionConfig_PtBin%d.pdf",iPtBin));
+    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures_reb/LHC2016/templ/freeSigma/ReflectionConfig_PtBin%d.pdf",iPtBin));
+//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures_reb/LHC2017/templ/freeSigma/ReflectionConfig_PtBin%d.pdf",iPtBin));
+//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures_reb/LHC2018/templ/freeSigma/ReflectionConfig_PtBin%d.pdf",iPtBin));
+//    cTest->SaveAs(Form("~/alice/D0_pp13TeV/results/figures_reb/all/templ/freeSigma/ReflectionConfig_PtBin%d.pdf",iPtBin));
     if(!hrfl){
       Printf("SOMETHING WENT WRONG WHILE SETTINGS REFLECTIONS TEMPLATE");
       delete hReflModif;
@@ -419,7 +413,7 @@ Double_t GetBackgroundNormalizationFactor(TH1D* hRatio, Int_t reb=1){
   return norm;
 }
 
-void ProjectCombinHFAndFit(){
+void ProjectCombinHFAndFit_rebinned(){
 
   if(configFileName.Length()>0){
     if(gSystem->Exec(Form("ls -l %s > /dev/null 2>&1",configFileName.Data()))==0){
@@ -1248,13 +1242,10 @@ void ProjectCombinHFAndFit(){
   }
   //  TString path(gSystem->pwd());
   TString path = "~/alice/D0_pp13TeV/results";
-  path.Append("/figures/LHC2016/templ/NoPID_Pt400");
-  //  path.Append("/figures/LHC2017/templ/NoPID_Pt400");
-  //  path.Append("/figures/LHC2018/templ/NoPID_Pt400");
-  //  path.Append("/figures/all/templ/NoPID_Pt400");
-  //  path.Append("/figures/all/templ_x2");
-  //  path.Append("/figures/all/templ_x05");
-  //  path.Append("/figures/all/norefl");
+  path.Append("/figures_reb/LHC2016/templ/freeSigma");
+  //  path.Append("/figures_reb/LHC2017/templ/freeSigma");
+  //  path.Append("/figures_reb/LHC2018/templ/freeSigma");
+  //  path.Append("/figures_reb/all/templ/freeSigma");
   if(gSystem->AccessPathName(path.Data())){ 
     gROOT->ProcessLine(Form(".!mkdir -p %s",path.Data()));  
   }
