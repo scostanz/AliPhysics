@@ -1,26 +1,23 @@
-TString datadir = "~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/LHC";
-TString effdir = "~/alice/D0_pp13TeV/results/efficiency/central_cuts/LHC";
-//TString effdir = "~/alice/D0_pp13TeV/results/efficiency/PIDcuts/LHC";
-TString year[5] = {"2016","2016","2016","2017","2018"};
-TString subdir[5] = {"_deghjop","_k","_l","_cefhijklmor","_bdefghijklmnop"};
-TString date = "7nov";
+TString datadir = "~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC";
+TString effdir = "~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/LHC";
+//TString effdir = "~/alice/D0_13TeV_lowpt/results/efficiency/PIDcuts/LHC";
+// TString year[4] = {"2016","2016","2017","2018"};
+// TString subdir[4] = {"_deghjop","_kl","_cefhijklmor","_bdefghijklmnop"};
+TString year[3] = {"2016","2017","2018"};
+TString date = "";
 TString suffix = "3SigPID_Pt400_YFid_PileUpMV";
 
 void MergeEffNew13TeV(){
 
   gStyle->SetOptTitle(0);
   
-  const Int_t nper = 5;
+  const Int_t nper = 3;
   Double_t weight[nper];
   TH1F* hEvForNormData = new TH1F("hEvForNorm","",nper,-0.5,nper-0.5);
 
   Bool_t foundNorm=kFALSE;
   for(Int_t j=0; j<nper; j++){
-    TString fname;
-    if (j==0)
-      fname = Form("%s%s_AOD208%s/%s/AnalysisResults_wo16otpc.root",datadir.Data(),year[j].Data(),subdir[j].Data(),date.Data());
-    else 
-      fname = Form("%s%s_AOD208%s/%s/AnalysisResults.root",datadir.Data(),year[j].Data(),subdir[j].Data(),date.Data());
+    TString fname = Form("%s%s/AnalysisResults.root",datadir.Data(),year[j].Data());
     TFile* f=new TFile(fname.Data());
     TDirectoryFile* df=(TDirectoryFile*)f->Get(Form("PWG3_D2H_InvMassDzeroLowPt%s",suffix.Data()));
     foundNorm=kFALSE;
@@ -28,16 +25,16 @@ void MergeEffNew13TeV(){
     if(!foundNorm){
       AliNormalizationCounter* cnt=(AliNormalizationCounter*)df->Get("NormalizationCounter");
       hEvForNormData->SetBinContent(j+1,cnt->GetNEventsForNorm());
-      hEvForNormData->GetXaxis()->SetBinLabel(j+1,subdir[j].Data());
+      hEvForNormData->GetXaxis()->SetBinLabel(j+1,year[j]);
       weight[j]=hEvForNormData->GetBinContent(j+1);
       foundNorm=kTRUE;
     }
   }
 
-//   printf("---- Events for norm in data ---\n");
-//   for (Int_t j=0; j<nper; j++) 
-//     printf("LHC%s%s: %7.3f M\n",year[j].Data(),subdir[j].Data(),hEvForNormData->GetBinContent(j+1)/1e6);
-//   printf("TOT: %7.3f M\n",hEvForNormData->Integral()/1e6);
+  printf("---- Events for norm in data ---\n");
+  for (Int_t j=0; j<nper; j++) 
+    printf("LHC%s: %7.3f M\n",year[j].Data(),hEvForNormData->GetBinContent(j+1)/1e6);
+  printf("TOT: %7.3f M\n",hEvForNormData->Integral()/1e6);
 
 
   TH1D** heff_pmpt = new TH1D*[nper];
@@ -55,10 +52,7 @@ void MergeEffNew13TeV(){
   TH1D* hacc;
   for (Int_t j=0;j<nper; j++) {
     TFile *fileeff;
-    if (j==0)
-      fileeff = TFile::Open(Form("%s%s%s/test/outputEff_Prompt_%s_wo16otpc.root", effdir.Data(),year[j].Data(),subdir[j].Data(),suffix.Data()));
-    else
-      fileeff = TFile::Open(Form("%s%s%s/outputEff_Prompt_%s.root", effdir.Data(),year[j].Data(),subdir[j].Data(),suffix.Data()));
+    fileeff = TFile::Open(Form("%s%s/outputEff_Prompt_%s.root", effdir.Data(),year[j].Data(),suffix.Data()));
     heff_pmpt[j] = (TH1D*)fileeff->Get(hnamepmpt.Data());
     heff_fddw[j] = (TH1D*)fileeff->Get(hnamefddw.Data());
     hacceff_pmpt[j] = (TH1D*)fileeff->Get(hnameacceffp.Data());
@@ -126,14 +120,14 @@ void MergeEffNew13TeV(){
     heff_pmpt[j]->GetYaxis()->SetTitle("Efficiency");
     heff_pmpt[j]->GetXaxis()->SetTitle("p_{T} (GeV/c)");
     heff_pmpt[j]->Draw("same");
-    heff_pmpt[j]->SetTitle(Form("LHC%s%s",year[j].Data(),subdir[j].Data()));
+    heff_pmpt[j]->SetTitle(Form("LHC%s",year[j].Data()));
     ceff_fddw->cd();
     heff_fddw[j]->SetStats(0);
     heff_fddw[j]->GetYaxis()->SetRangeUser(0.,1.);
     heff_fddw[j]->GetYaxis()->SetTitle("Efficiency");
     heff_fddw[j]->GetXaxis()->SetTitle("p_{T} (GeV/c)");
     heff_fddw[j]->Draw("same");
-    heff_fddw[j]->SetTitle(Form("LHC%s%s",year[j].Data(),subdir[j].Data()));
+    heff_fddw[j]->SetTitle(Form("LHC%s",year[j].Data()));
     // acceptance x efficiency plots
     cacceff_pmpt->cd();
     hacceff_pmpt[j]->SetStats(0);
@@ -141,14 +135,14 @@ void MergeEffNew13TeV(){
     hacceff_pmpt[j]->GetYaxis()->SetTitle("Acceptance x Efficiency");
     hacceff_pmpt[j]->GetXaxis()->SetTitle("p_{T} (GeV/c)");
     hacceff_pmpt[j]->Draw("same");
-    hacceff_pmpt[j]->SetTitle(Form("LHC%s%s",year[j].Data(),subdir[j].Data()));
+    hacceff_pmpt[j]->SetTitle(Form("LHC%s",year[j].Data()));
     cacceff_fddw->cd();
     hacceff_fddw[j]->SetStats(0);
     hacceff_fddw[j]->GetYaxis()->SetRangeUser(0.,1.);
     hacceff_fddw[j]->GetYaxis()->SetTitle("Acceptance x Efficiency");
     hacceff_fddw[j]->GetXaxis()->SetTitle("p_{T} (GeV/c)");
     hacceff_fddw[j]->Draw("same");
-    hacceff_fddw[j]->SetTitle(Form("LHC%s%s",year[j].Data(),subdir[j].Data()));
+    hacceff_fddw[j]->SetTitle(Form("LHC%s",year[j].Data()));
   }
 
 
@@ -261,14 +255,14 @@ void MergeEffNew13TeV(){
     cratiop->cd();
     hrpmpt[j]->GetYaxis()->SetTitle("Efficiency ratio");
     hrpmpt[j]->GetYaxis()->SetRangeUser(0.8,1.2);
-    hrpmpt[j]->SetTitle(Form("LHC%s%s/weighted mean",year[j].Data(),subdir[j].Data()));
+    hrpmpt[j]->SetTitle(Form("LHC%s/weighted mean",year[j].Data()));
     hrpmpt[j]->Draw("same");
     hrfddw[j] = (TH1D*) heff_fddw[j]->Clone();
     hrfddw[j]->Divide(heff_fddw[j], heffall_fddw,1,1,"B");
     cratiof->cd();
     hrfddw[j]->GetYaxis()->SetTitle("Efficiency ratio");
     hrfddw[j]->GetYaxis()->SetRangeUser(0.8,1.2);
-    hrfddw[j]->SetTitle(Form("LHC%s%s/weighted mean",year[j].Data(),subdir[j].Data()));
+    hrfddw[j]->SetTitle(Form("LHC%s/weighted mean",year[j].Data()));
     hrfddw[j]->Draw("same");
   }
   TLine *ll = new TLine(0., 1., 12., 1.);
@@ -297,8 +291,8 @@ void MergeEffNew13TeV(){
   ll->Draw("same");
 
   // output file
-  TFile *coutput = new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/all/outputEff_Weighted_%s_wo16otpc.root",suffix.Data()), "RECREATE");
-  //  TFile *coutput = new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/PIDcuts/all/outputEff_Weighted_%s.root",suffix.Data()), "RECREATE");
+  TFile *coutput = new TFile(Form("~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_Weighted_%s.root",suffix.Data()), "RECREATE");
+  //  TFile *coutput = new TFile(Form("~/alice/D0_13TeV_lowpt/results/efficiency/PIDcuts/all/outputEff_Weighted_%s.root",suffix.Data()), "RECREATE");
   heffall_pmpt->SetName(hnamepmpt.Data());
   heffall_fddw->SetName(hnamefddw.Data());
   heffall_pmpt->Write();

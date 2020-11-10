@@ -1,5 +1,5 @@
-TString datadir = "~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/LHC";
-TString effdir = "~/alice/D0_pp13TeV/results/efficiency/central_cuts/";
+TString datadir = "~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC";
+TString effdir = "~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/";
 TString year[6] = {"2016","2016","2016","2017","2018","all"};
 TString subdir[6] = {"_deghjop","_k","_l","_cefhijklmor","_bdefghijklmnop","/noweights"};
 TString date = "23nov";
@@ -188,7 +188,7 @@ void ratio_eff(){
   ll->Draw("same");
 
   // output file
-  TFile *coutput = new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/all/outputEff_all_%s.root",suffix.Data()), "RECREATE");
+  TFile *coutput = new TFile(Form("~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_all_%s.root",suffix.Data()), "RECREATE");
   heffall_pmpt->SetName(hnamepmpt.Data());
   heffall_fddw->SetName(hnamefddw.Data());
   heffall_pmpt->Write();

@@ -5,15 +5,15 @@ void compare_parameters_periods() {
   
   gStyle->SetOptTitle(0);
 
-  const Int_t nMax = 3;
+  const Int_t nMax = 4;
 
   //  TString fname = "outputMassFits_FreeSigma_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
   TString fname = "outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
-  TString inputdir = "~/alice/D0_pp13TeV/results/figures_reb/";
-//   TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018","all"};
-//   TString legend[nMax] = {"2016","2017","2018","all datasets"};
-  TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018"};
-  TString legend[nMax] = {"2016 fixed #sigma","2017 fixed #sigma","2018 fixed #sigma"};
+  TString inputdir = "~/alice/D0_13TeV_lowpt/results/figures/";
+  TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018","all"};
+  TString legend[nMax] = {"2016","2017","2018","merged datasets"};
+//   TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018"};
+//   TString legend[nMax] = {"2016 fixed #sigma","2017 fixed #sigma","2018 fixed #sigma"};
 
   TCanvas *cmean   = new TCanvas("cmean",   "cmean",   800, 600);
   TCanvas *csigma  = new TCanvas("csigma",  "csigma",  800, 600);
@@ -63,6 +63,12 @@ void compare_parameters_periods() {
       hsigma[i]->SetLineColor(kGreen);     hsigma[i]->SetMarkerColor(kGreen);    hsigma[i]->SetMarkerStyle(22);
       hsignif[i]->SetLineColor(kGreen);    hsignif[i]->SetMarkerColor(kGreen);   hsignif[i]->SetMarkerStyle(22);
       hsoverb[i]->SetLineColor(kGreen);    hsoverb[i]->SetMarkerColor(kGreen);   hsoverb[i]->SetMarkerStyle(22);
+      break;
+    case 3:
+      hmean[i]->SetLineColor(kBlack);      hmean[i]->SetMarkerColor(kBlack);     hmean[i]->SetMarkerStyle(3); 
+      hsigma[i]->SetLineColor(kBlack);     hsigma[i]->SetMarkerColor(kBlack);    hsigma[i]->SetMarkerStyle(3);
+      hsignif[i]->SetLineColor(kBlack);    hsignif[i]->SetMarkerColor(kBlack);   hsignif[i]->SetMarkerStyle(3);
+      hsoverb[i]->SetLineColor(kBlack);    hsoverb[i]->SetMarkerColor(kBlack);   hsoverb[i]->SetMarkerStyle(3);
       break;
     }
     // gaussian mean

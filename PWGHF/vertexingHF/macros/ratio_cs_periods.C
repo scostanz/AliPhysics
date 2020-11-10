@@ -13,12 +13,10 @@ void ratio_cs_periods() {
 
   const Int_t nMax = 4;
 
-  TString fname = "HFPtSpectrum_";
-  TString inputdir = "~/alice/D0_pp13TeV/results/cs/noeffweights/freeSigma/";
-//   TString dataset[nMax] = {"2016_deghjop","2016_kl","2017","2018","central"};
-//   TString legend[nMax] = {"2016_deghjop","2016_kl","2017","2018","all datasets"};
-  TString dataset[nMax] = {"2016","2017","2018","all"};
-  TString legend[nMax] = {"2016","2017","2018","all datasets"};
+  TString fname = "HFPtSpectrum_3SigPID_Pt400_";
+  TString inputdir = "~/alice/D0_13TeV_lowpt/results/cs/";
+  TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018","all"};
+  TString legend[nMax] = {"2016","2017","2018","merged datasets"};
   TCanvas *c = new TCanvas(hName, hName, 800, 600);
 
   TString hNameR = Form("%sratioToTotal",hName.Data());
@@ -68,7 +66,8 @@ void ratio_cs_periods() {
   TH1D *href = (TH1D*) h[nMax-1]->Clone();
   for (Int_t i=0; i<nMax-1; i++) {
     hr[i] = (TH1D*)h[i]->Clone();
-    hr[i]->Divide(h[i],href,1,1,"B");
+//     hr[i]->Divide(h[i],href,1,1,"B");
+    hr[i]->Divide(h[i],href,1,1,"");
     hr[i]->SetMarkerStyle(20+i);
     hr[i]->SetLineWidth(1);
     switch(i) {
@@ -86,8 +85,8 @@ void ratio_cs_periods() {
     hr[i]->SetStats(0);
     hr[i]->GetXaxis()->SetTitle("p_{T} (GeV/c)");
     hr[i]->GetYaxis()->SetTitle(Form("%s ratio",title.Data()));
-    hr[i]->SetName(Form("%s/all datasets",legend[i].Data()));
-    hr[i]->SetTitle(Form("%s/all datasets",legend[i].Data()));
+    hr[i]->SetName(Form("%s/merged",legend[i].Data()));
+    hr[i]->SetTitle(Form("%s/merged",legend[i].Data()));
   }
   cratio->BuildLegend();
 

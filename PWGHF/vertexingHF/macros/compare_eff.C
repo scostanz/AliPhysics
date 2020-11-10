@@ -13,7 +13,7 @@ void compare_eff() {
   const Int_t nMax = 9;
 
   TString fname = "outputEff_Prompt_3SigPID_Pt400_YFid_PileUpMV.root";
-  TString inputdir = "~/alice/D0_pp13TeV/results/efficiency/central_cuts/LHC2016_deghjop/test/";
+  TString inputdir = "~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/LHC2016_deghjop/test/";
   TString dataset[nMax] = {"16d","16e","16g","16h_negB","16h_posB","16j","16o_hadronPID","16o_incompleteTPC","16p"};
 
   TCanvas *c = new TCanvas(hName, hName, 800, 600);

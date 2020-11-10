@@ -8,17 +8,17 @@ void compare_yields_periods_pid() {
   TString hName = "hRawYieldRot";
   TString title = "Raw Yield / events";
 
-  const Int_t nMax = 3;
+  const Int_t nMax = 4;
 
   TString fname = "outputMassFits_FixedSigmaAll_Refl_";
-  TString pidcut = "NoPID_Pt400";
+  TString pidcut = "3SigPID_Pt400";
   TString suffix = "_YFid_PileUpMV.root";
 
-  TString inputdir = "~/alice/D0_pp13TeV/results/figures/";
-//   TString dataset[nMax] = {"LHC2016_deghjop","LHC2016_kl","LHC2017","LHC2018","all"};
-//   TString legend[nMax] = {"LHC2016_deghjop","LHC2016_kl","LHC2017","LHC2018","all datasets"};
-  TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018"};
-  TString legend[nMax] = {"LHC2016","LHC2017","LHC2018"};
+  TString inputdir = "~/alice/D0_13TeV_lowpt/results/figures/";
+  TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018","all"};
+  TString legend[nMax] = {"LHC2016","LHC2017","LHC2018","merged datasets"};
+//   TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018"};
+//   TString legend[nMax] = {"LHC2016","LHC2017","LHC2018"};
   TCanvas *c = new TCanvas(hName, hName, 800, 600);
 
   TString hNameR = Form("%sratioToTotal",hName.Data());
@@ -27,7 +27,8 @@ void compare_yields_periods_pid() {
   TH1D* h[nMax], *hr[nMax];
 
   for (Int_t i=0; i<nMax; i++) {
-    fileName[i].Form("%s%s/templ/%s/%s%s%s",inputdir.Data(), dataset[i].Data(), pidcut.Data(),fname.Data(), pidcut.Data(), suffix.Data());
+ //    fileName[i].Form("%s%s/templ/%s/%s%s%s",inputdir.Data(), dataset[i].Data(), pidcut.Data(),fname.Data(), pidcut.Data(), suffix.Data());
+   fileName[i].Form("%s%s/templ/%s%s%s",inputdir.Data(),dataset[i].Data(),fname.Data(),pidcut.Data(),suffix.Data());
     cout << fileName[i].Data() << endl;
 
     TFile *inFile = TFile::Open(fileName[i].Data());
@@ -44,6 +45,7 @@ void compare_yields_periods_pid() {
     TH1F* hNorm=(TH1F*)inFile->Get("hEvForNorm");
     if(hNorm){
       nevents=hNorm->GetBinContent(1);
+      printf("  nevents = %.0f will be used\n",nevents);
     }else{
       printf("Histogram with number of events for norm not found in raw yiled file\n");
       printf("  nevents = %.0f will be used\n",nevents);
@@ -57,9 +59,9 @@ void compare_yields_periods_pid() {
     h[i]->SetMarkerStyle(20+i);
     switch(i) {
     case 0:  h[i]->SetLineColor(kBlue);      h[i]->SetMarkerColor(kBlue);      break;
-    case 1:  h[i]->SetLineColor(kRed);       h[i]->SetMarkerColor(kRed);       break;
-    case 2:  h[i]->SetLineColor(kGreen);     h[i]->SetMarkerColor(kGreen);     break;
-    case 3:  h[i]->SetLineColor(kBlack);     h[i]->SetMarkerColor(kBlack);  h[i]->SetMarkerStyle(3);        break;
+    case 1:  h[i]->SetLineColor(kGreen);     h[i]->SetMarkerColor(kGreen);     break;
+    case 2:  h[i]->SetLineColor(kMagenta);   h[i]->SetMarkerColor(kMagenta);   break;
+    case 3:  h[i]->SetLineColor(kRed);       h[i]->SetMarkerColor(kRed);    h[i]->SetMarkerStyle(3);        break;
     }
     h[i]->SetLineWidth(1);
     c->cd();
@@ -76,7 +78,7 @@ void compare_yields_periods_pid() {
   c->BuildLegend();
 
 
-  TFile *fout = new TFile(Form("~/alice/D0_pp13TeV/results/cs/noeffweights/PID_cuts/Compare_yieldsXevt_periods_%s_SPDoff.root",pidcut.Data()), "RECREATE");
+  TFile *fout = new TFile(Form("~/alice/D0_13TeV_lowpt/results/cs/Compare_yieldsXevt_periods_%s.root",pidcut.Data()), "RECREATE");
   c->Write();
   fout->Write();
   fout->Close();

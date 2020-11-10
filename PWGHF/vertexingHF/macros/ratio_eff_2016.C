@@ -1,7 +1,7 @@
-TString effdir = "~/alice/D0_pp13TeV/results/efficiency/central_cuts/";
+TString effdir = "~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/";
 TString year[4] = {"2016","2017","2018","all"};
-TString subdir[4] = {"","_cefhijklmor","_bdefghijklmnop","/noweights"};
-TString date = "23nov";
+TString subdir[4] = {"","","",""};
+TString date = "";
 TString suffix = "3SigPID_Pt400_YFid_PileUpMV";
 
 void ratio_eff_2016(){
@@ -27,6 +27,7 @@ void ratio_eff_2016(){
       if (j!=nper-1)
 	fileeff	= TFile::Open(Form("%sLHC%s%s/outputEff_Prompt_%s.root", effdir.Data(),year[j].Data(),subdir[j].Data(),suffix.Data()));
       else 
+	//	fileeff = TFile::Open(Form("%s%s%s/outputEff_Weighted_%s.root", effdir.Data(),year[j].Data(),subdir[j].Data(),suffix.Data()));
 	fileeff = TFile::Open(Form("%s%s%s/outputEff_Prompt_%s.root", effdir.Data(),year[j].Data(),subdir[j].Data(),suffix.Data()));
     heff_pmpt[j] = (TH1D*)fileeff->Get(hnamepmpt.Data());
     heff_fddw[j] = (TH1D*)fileeff->Get(hnamefddw.Data());
@@ -210,7 +211,7 @@ void ratio_eff_2016(){
   ll->Draw("same");
 
   // output file
-  TFile *coutput = new TFile(Form("~/alice/D0_pp13TeV/results/efficiency/central_cuts/all/noweights/outputEff_all2016_%s.root",suffix.Data()), "RECREATE");
+  TFile *coutput = new TFile(Form("~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_all2016_%s.root",suffix.Data()), "RECREATE");
   heffall_pmpt->SetName(hnamepmpt.Data());
   heffall_fddw->SetName(hnamefddw.Data());
   heffall_pmpt->Write();

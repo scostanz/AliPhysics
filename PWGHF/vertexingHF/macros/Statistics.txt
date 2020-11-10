@@ -1,9 +1,0 @@
-Statistics in trains - runs: LHC17h8a - LHC18f4a_16k - LHC18f4a_16l:
-		 Nevents	 read (M)	 selected (M)
-LHC17h8a		  49.970        48.321
-LHC18f4a_16k		  21.938        21.308
-LHC18f4a_16l		  71.909        69.628
-		Percentages	 read (M)	 selected (M)
-LHC17h8a		  34.75%        34.70%
-LHC18f4a_16k		  15.25%        15.30%
-LHC18f4a_16l		  50.00%        50.00%

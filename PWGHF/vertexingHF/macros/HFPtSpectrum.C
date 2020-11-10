@@ -40,35 +40,36 @@
 //
 
 enum decay { kD0Kpi, kDplusKpipi, kDstarD0pi, kDsKKpi, kLctopKpi, kLcK0Sp};
-enum centrality{ kpp8, kpp7, kpp5, kpp276, k07half, kpPb0100, k010, k1020, k020, k1030, k2040, k2030, k3040, k4050, k3050, k5060, k4060, k6080, k4080, k5080, k80100, kpPb010, kpPb020, kpPb1020, kpPb2040, kpPb4060, kpPb60100 };
+enum centrality{ kpp13, kpp8, kpp7, kpp5, kpp276, k07half, kpPb0100, k010, k1020, k020, k1030, k2040, k2030, k3040, k4050, k3050, k5060, k4060, k6080, k4080, k5080, k80100, kpPb010, kpPb020, kpPb1020, kpPb2040, kpPb4060, kpPb60100 };
 enum centestimator{ kV0M, kV0A, kZNA, kCL1 };
-enum energy{ k276, k5dot023, k55 };
+enum energy{ k276, k5dot023, k55, k13 };
 enum datayear{k2010, k2011, k2012, k2013, k2015, k2016, k2017, k2018};
 enum BFDSubtrMethod { knone, kfc, kNb };
 enum RaavsEP {kPhiIntegrated, kInPlane, kOutOfPlane};
 enum rapidity{ kdefault, k08to04, k07to04, k04to01, k01to01, k01to04, k04to07, k04to08, k01to05 };
 enum particularity{ kTopological, kLowPt, kPP7TeVPass4, kBDT };
 
-void HFPtSpectrum ( Int_t decayChan=kDplusKpipi,
-		    const char *mcfilename="FeedDownCorrectionMC.root",
-		    const char *efffilename="Efficiencies.root",
-		    const char *recofilename="Reconstructed.root",
-		    const char *recohistoname="hRawSpectrumD0",
-		    const char *nevhistoname="hNEvents",
-		    const char *outfilename="HFPtSpectrum.root",
+void HFPtSpectrum ( Int_t decayChan=kD0Kpi,
+		    const char *mcfilename="~/alice/D0_13TeV_lowpt/ROOTfiles/MC/DmesonLcPredictions_13TeV_y05_FFee_BRpythia8.root",
+		    const char *efffilename="~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_Prompt_3SigPID_Pt400_YFid_PileUpMV.root",
+		    //		    const char *efffilename="~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_Weighted_3SigPID_Pt400_YFid_PileUpMV.root",
+		    const char *recofilename="~/alice/D0_13TeV_lowpt/results/figures/all/templ/outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root",
+		    const char *recohistoname="hRawYieldRot",
+		    const char *nevhistoname="hEvForNorm",
+		    const char *outfilename="~/alice/D0_13TeV_lowpt/results/cs/HFPtSpectrum_3SigPID_Pt400_all.root",
 		    Int_t fdMethod=kNb,
 		    Double_t nevents=1.0, // overriden by nevhistoname
-		    Double_t sigma=1.0, // sigma[pb]
+		    Double_t sigma=57.8e9, // sigma[pb]
 		    Bool_t isParticlePlusAntiParticleYield=true,
-		    Int_t cc=kpp7,
-		    Int_t year=k2010,
+		    Int_t cc=kpp13,
+		    Int_t year=k2018,
 		    Bool_t PbPbEloss=false,
-		    Int_t Energy=k276,
+		    Int_t Energy=k13,
 		    Int_t ccestimator = kV0M,
 		    Int_t isRaavsEP=kPhiIntegrated,
 		    const char *epResolfile="",
 		    Int_t rapiditySlice=kdefault,
-		    Int_t analysisSpeciality=kTopological,
+		    Int_t analysisSpeciality=kTopological,//kLowPt
 		    Bool_t setUsePtDependentEffUncertainty=true) {
 
 
@@ -88,7 +89,7 @@ void HFPtSpectrum ( Int_t decayChan=kDplusKpipi,
     return;
   }
 
-
+  cout << "************ OPTION " << option << endl;
   //
   // Defining the Tab values for the given centrality class
   // https://twiki.cern.ch/twiki/bin/viewauth/ALICE/CentStudies
@@ -432,6 +433,7 @@ void HFPtSpectrum ( Int_t decayChan=kDplusKpipi,
   }
 
   cout << " and the normalization" <<endl;
+  cout << "******************** EVENTS " << nevents << endl;
   // Set normalization factors (uncertainties set to 0. as example)
   spectra->SetNormalization(nevents,sigma);
   Double_t lumi = nevents / sigma ;
@@ -451,12 +453,12 @@ void HFPtSpectrum ( Int_t decayChan=kDplusKpipi,
   spectra->SetIsParticlePlusAntiParticleYield(isParticlePlusAntiParticleYield);
 
   // Set the Tab parameter and uncertainties
-  if ( (cc != kpp7) && (cc != kpp8) && (cc != kpp276) && (cc != kpp5) ) {
+  if ( (cc != kpp7) && (cc != kpp8) && (cc != kpp276) && (cc != kpp5) && (cc != kpp13)) {
     spectra->SetTabParameter(tab,tabUnc);
   }
   if ( cc == kpPb0100 || cc == kpPb020 || cc == kpPb1020 || cc == kpPb2040 || cc == kpPb4060 || cc == kpPb60100 ) {
     spectra->SetCollisionType(2);
-  } else if ( !( cc==kpp7 || cc==kpp8 || cc==kpp276 || cc==kpp5 ) ) {
+  } else if ( !( cc==kpp7 || cc==kpp8 || cc==kpp276 || cc==kpp5 || cc==kpp13 ) ) {
     spectra->SetCollisionType(1);
   }
 
@@ -528,7 +530,7 @@ void HFPtSpectrum ( Int_t decayChan=kDplusKpipi,
     }
   }
   //
-  else if( cc!=kpp7 )  {
+  else if( cc!=kpp7 && cc!=kpp13)  {
     systematics->SetCollisionType(1);
     if(Energy==k276){
         if ( cc == k07half ) systematics->SetCentrality("07half");

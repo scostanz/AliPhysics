@@ -22,8 +22,8 @@
 
 enum Method{kME,kRot,kLs,kSB};
 
-TString configFileName="configfile4lowptanalysis.txt";
-TString outdir="~/alice/D0_13TeV_lowpt/results/figures/all/2gaus";
+TString configFileName="configfile4lowptanalysis_coarse.txt";
+TString outdir="~/alice/D0_13TeV_lowpt/results/figures/all/templ/coarse";
 
 // input files and pt binning
 TString fileName="";
@@ -412,7 +412,7 @@ Double_t GetBackgroundNormalizationFactor(TH1D* hRatio, Int_t reb=1){
   return norm;
 }
 
-void ProjectCombinHFAndFit(){
+void ProjectCombinHFAndFitRebinned(){
 
   if(configFileName.Length()>0){
     if(gSystem->Exec(Form("ls -l %s > /dev/null 2>&1",configFileName.Data()))==0){

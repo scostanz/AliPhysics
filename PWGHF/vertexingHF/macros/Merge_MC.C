@@ -1,8 +1,8 @@
 void SaveStats();
 
-TString inputdir = "~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/";
+TString inputdir = "~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/";
 TString dir[5] = {"LHC17h8a","LHC18f4a_16k","LHC18f4a_16l","LHC18l4a","LHC18l4b"};
-TString date = "23nov";
+TString date = "";
 
 void Merge_MC(){
 

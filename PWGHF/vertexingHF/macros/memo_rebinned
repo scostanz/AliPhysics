@@ -1,0 +1,18 @@
+BackgroundOptions:
+    NormalizationOption: 1
+    RangeForNormalization: 0.05
+    UseEvMixWithLS: 0
+    UseGeomMeanLS: 1
+    RenormalizeLS: 1
+    SmoothLS: 0
+    TryDirectFit: 1
+    MinSBFit: [ 1.76,1.76,1.74,1.74,1.72 ]
+    MaxSBFit: [ 1.94,1.96,1.98,2.0,2.04 ]
+    PolDegreeSB: [ 4,4,4,4,2 ]
+
+PtBins:
+    NumOfPtBins: 5
+    BinLimits: [ 1.,2.,4.,6.,8.,12. ]
+    Rebin: [ 9,9,10,11,12 ]
+    MinFit: [ 1.78,1.76,1.74,1.72,1.72 ]
+    MaxFit: [ 1.94,1.96,1.98,2.02,2.04 ]

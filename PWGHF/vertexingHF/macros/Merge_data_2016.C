@@ -1,11 +1,11 @@
 void SaveStats();
 
-TString inputdir = "~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/";
-TString dir[4] = {"LHC17h8a","LHC18f4a_16k","LHC18f4a_16l","LHC2016"};
-TString date = "23nov";
+TString inputdir = "~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/";
+TString dir[3] = {"LHC2016_deghjop","LHC2016_kl","LHC2016"};
+TString date = "";
 
-void Merge_MC_2016(){
-
+void Merge_data_2016(){
+  
   TString dirtomerge="";
 
   TFile * fi=new TFile(Form("%s%s/AnalysisResults.root",inputdir.Data(),dir[0].Data()));
@@ -28,8 +28,8 @@ void Merge_MC_2016(){
   
   TFileMerger mga;
   mga.AddObjectNames(dirtomerge.Data());
-  mga.OutputFile(Form("%s%s/AnalysisResults.root",inputdir.Data(),dir[3].Data()));
-  for (int i=0; i<3;i++) {
+  mga.OutputFile(Form("%s%s/AnalysisResults.root",inputdir.Data(),dir[2].Data()));
+  for (int i=0; i<2;i++) {
     cout << "Adding file " << Form("%s%s/AnalysisResults.root",inputdir.Data(),dir[i].Data()) << endl;
     mga.AddFile(Form("%s%s/AnalysisResults.root",inputdir.Data(),dir[i].Data()));
   }
@@ -40,9 +40,8 @@ void Merge_MC_2016(){
 }
 
 void SaveStats(){
-  TString filnam1=Form("%s%s/AnalysisResults.root",inputdir.Data(),dir[0].Data());
-  TString filnam2=Form("%s%s/AnalysisResults.root",inputdir.Data(),dir[1].Data());
-  TString filnam3=Form("%s%s/AnalysisResults.root",inputdir.Data(),dir[2].Data());
+  TString filnam1=Form("%s%s/%s/AnalysisResults.root",inputdir.Data(),dir[0].Data(),date.Data());
+  TString filnam2=Form("%s%s/%s/AnalysisResults.root",inputdir.Data(),dir[1].Data(),date.Data());
   TFile* fil1=new TFile(filnam1.Data());
   TString dirName="";
   TString listName="";
@@ -60,7 +59,7 @@ void SaveStats(){
       if(lst) break;
     }
   }
-  printf("%s  %s\n",dirName.Data(),listName.Data());
+  //  printf("%s  %s\n",dirName.Data(),listName.Data());
 
   TDirectoryFile* dir1=(TDirectoryFile*)fil1->Get(dirName.Data());
   TList* lis1=(TList*)dir1->Get(listName.Data());
@@ -73,38 +72,30 @@ void SaveStats(){
   TH1F* h2=(TH1F*)lis2->FindObject("hNEvents");
   h2->SetName(Form("hNEvents_%s",dir[1].Data()));
 
-  TFile* fil3=new TFile(filnam3.Data());
-  TDirectoryFile* dir3=(TDirectoryFile*)fil3->Get(dirName.Data());
-  TList* lis3=(TList*)dir3->Get(listName.Data());
-  TH1F* h3=(TH1F*)lis3->FindObject("hNEvents");
-  h3->SetName(Form("hNEvents_%s",dir[2].Data()));
+  Double_t tot1=h1->GetBinContent(1)+h2->GetBinContent(1);
+  Double_t tot2=h1->GetBinContent(2)+h2->GetBinContent(2);
 
-  Double_t tot1=h1->GetBinContent(1)+h2->GetBinContent(1)+h3->GetBinContent(1);
-  Double_t tot2=h1->GetBinContent(2)+h2->GetBinContent(2)+h3->GetBinContent(2);
-
-  printf("Statistics in trains - runs: %s - %s - %s:\n",dir[0].Data(),dir[1].Data(),dir[2].Data());
+  printf("Statistics in trains - runs: %s - %s: \n",dir[0].Data(), dir[1].Data());
   printf("Nevents\t\t read (M)\t selected (M)\n");
-  printf("%s\t%8.3f      %8.3f\n",dir[0].Data(),h1->GetBinContent(1)/1.e6,h1->GetBinContent(2)/1.e6);
-  printf("%s\t%8.3f      %8.3f\n",dir[1].Data(),h2->GetBinContent(1)/1.e6,h2->GetBinContent(2)/1.e6);
-  printf("%s\t%8.3f      %8.3f\n",dir[2].Data(),h3->GetBinContent(1)/1.e6,h3->GetBinContent(2)/1.e6);
+  printf("%s\t\t%8.3f      %8.3f\n",dir[0].Data(),h1->GetBinContent(1)/1.e6,h1->GetBinContent(2)/1.e6);
+  printf("%s\t\t%8.3f      %8.3f\n",dir[1].Data(),h2->GetBinContent(1)/1.e6,h2->GetBinContent(2)/1.e6);
   printf("Percentages\t read (M)\t selected (M)\n");
-  printf("%s\t  %5.2f%%        %5.2f%%\n",dir[0].Data(),h1->GetBinContent(1)/tot1*100,h1->GetBinContent(2)/tot2*100);
-  printf("%s\t  %5.2f%%        %5.2f%%\n",dir[1].Data(),h2->GetBinContent(1)/tot1*100,h2->GetBinContent(2)/tot2*100);
-  printf("%s\t  %5.2f%%        %5.2f%%\n",dir[2].Data(),h3->GetBinContent(1)/tot1*100,h3->GetBinContent(2)/tot2*100);
+  printf("%s\t\t  %5.2f%%        %5.2f%%\n",dir[0].Data(),h1->GetBinContent(1)/tot1*100,h1->GetBinContent(2)/tot2*100);
+  printf("%s\t\t  %5.2f%%        %5.2f%%\n",dir[1].Data(),h2->GetBinContent(1)/tot1*100,h2->GetBinContent(2)/tot2*100);
 
-  FILE* ftxtout = fopen("Statistics.txt","w");
-  fprintf(ftxtout,"Statistics in trains - runs: %s - %s - %s:\n",dir[0].Data(), dir[1].Data(),dir[2].Data());
-  fprintf(ftxtout,"\t\t Nevents\t read (M)\t selected (M)\n");
-  fprintf(ftxtout,"%s\t\t%8.3f      %8.3f\n",dir[0].Data(),h1->GetBinContent(1)/1.e6,h1->GetBinContent(2)/1.e6);
-  fprintf(ftxtout,"%s\t\t%8.3f      %8.3f\n",dir[1].Data(),h2->GetBinContent(1)/1.e6,h2->GetBinContent(2)/1.e6);
-  fprintf(ftxtout,"%s\t\t%8.3f      %8.3f\n",dir[2].Data(),h3->GetBinContent(1)/1.e6,h3->GetBinContent(2)/1.e6);
-  fprintf(ftxtout,"\t\tPercentages\t read (M)\t selected (M)\n");
-  fprintf(ftxtout,"%s\t\t  %5.2f%%        %5.2f%%\n",dir[0].Data(),h1->GetBinContent(1)/tot1*100,h1->GetBinContent(2)/tot2*100);
-  fprintf(ftxtout,"%s\t\t  %5.2f%%        %5.2f%%\n",dir[1].Data(),h2->GetBinContent(1)/tot1*100,h2->GetBinContent(2)/tot2*100);
-  fprintf(ftxtout,"%s\t\t  %5.2f%%        %5.2f%%\n",dir[2].Data(),h3->GetBinContent(1)/tot1*100,h3->GetBinContent(2)/tot2*100);
-
-  TFile* outStat=new TFile(Form("%sStatsDataSets_%s-%s-%s.root",inputdir.Data(),dir[0].Data(),dir[1].Data(),dir[2].Data()),"recreate");
+  TFile* outStat=new TFile(Form("%s%s/StatsDataSets_%s-%s.root",inputdir.Data(),dir[2].Data(),dir[0].Data(), dir[1].Data()),"recreate");
   h1->Write();
   h2->Write();
   outStat->Close();
+ 
+  FILE* ftxtout = fopen("Statistics.txt","w");
+  fprintf(ftxtout,"Statistics in trains - runs: %s - %s: \n",dir[0].Data(), dir[1].Data());
+  fprintf(ftxtout,"\t\t Nevents\t read (M)\t selected (M)\n");
+  fprintf(ftxtout,"%s\t\t%8.3f      %8.3f\n",dir[0].Data(),h1->GetBinContent(1)/1.e6,h1->GetBinContent(2)/1.e6);
+  fprintf(ftxtout,"%s\t\t%8.3f      %8.3f\n",dir[1].Data(),h2->GetBinContent(1)/1.e6,h2->GetBinContent(2)/1.e6);
+  fprintf(ftxtout,"\t\tPercentages\t read (M)\t selected (M)\n");
+  fprintf(ftxtout,"%s\t\t  %5.2f%%        %5.2f%%\n",dir[0].Data(),h1->GetBinContent(1)/tot1*100,h1->GetBinContent(2)/tot2*100);
+  fprintf(ftxtout,"%s\t\t  %5.2f%%        %5.2f%%\n",dir[1].Data(),h2->GetBinContent(1)/tot1*100,h2->GetBinContent(2)/tot2*100);
+
+
 }

@@ -1,6 +1,6 @@
 void SaveStats();
 
-TString inputdir = "~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/";
+TString inputdir = "~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/";
 TString dir[3] = {"LHC18f4a_16k","LHC18f4a_16l","LHC18f4a_16kl"};
 //TString date = "23nov";
 

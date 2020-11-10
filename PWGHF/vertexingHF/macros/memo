@@ -1,49 +1,49 @@
 InputFiles 2016_kl:
-    DataFile: ~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/LHC2016_AOD208_kl/23nov/AnalysisResults.root
+    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC2016_kl/AnalysisResults.root
     SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/LHC18f4a_16kl/23nov/AnalysisResults.root	
+    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/LHC18f4a_16kl/AnalysisResults.root	
     SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
-    AcceptanceFile: ~/alice/D0_pp13TeV/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
+    AcceptanceFile: ~/alice/D0_13TeV_lowpt/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
     Meson: Dzero
 
 InputFiles 2016_deghjop:
-    DataFile: ~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/LHC2016_AOD208_deghjop/23nov/AnalysisResults.root
+    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC2016_deghjop/AnalysisResults.root
     SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/LHC17h8a/23nov/AnalysisResults.root	
+    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/LHC17h8a/AnalysisResults.root	
     SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
-    AcceptanceFile: ~/alice/D0_pp13TeV/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
+    AcceptanceFile: ~/alice/D0_13TeV_lowpt/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
     Meson: Dzero
 
 InputFiles 2016_all:
-    DataFile: ~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/LHC2016_AOD208_all/23nov/AnalysisResults.root
+    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC2016/AnalysisResults.root
     SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/LHC2016/23nov/AnalysisResults.root	
+    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/LHC2016/AnalysisResults.root	
     SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
-    AcceptanceFile: ~/alice/D0_pp13TeV/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
+    AcceptanceFile: ~/alice/D0_13TeV_lowpt/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
     Meson: Dzero
 
 InputFiles 2017:
-    DataFile: ~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/LHC2017_AOD208_cefhijklmor/23nov/AnalysisResults.root
+    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC2017/AnalysisResults.root
     SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/LHC18l4a/23nov/AnalysisResults.root	
+    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/LHC18l4a/AnalysisResults.root	
     SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
-    AcceptanceFile: ~/alice/D0_pp13TeV/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
+    AcceptanceFile: ~/alice/D0_13TeV_lowpt/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
     Meson: Dzero
 
 InputFiles 2018:
-    DataFile: ~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/LHC2018_AOD208_bdefghijklmnop/23nov/AnalysisResults.root
+    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC2018/AnalysisResults.root
     SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/LHC18l4b/23nov/AnalysisResults.root	
+    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/LHC18l4b/AnalysisResults.root	
     SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
-    AcceptanceFile: ~/alice/D0_pp13TeV/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
+    AcceptanceFile: ~/alice/D0_13TeV_lowpt/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
     Meson: Dzero
 
 InputFiles all:
-    DataFile: ~/alice/D0_pp13TeV/ROOTfiles/data/lowpt/AnalysisResults_23nov.root
+    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/AnalysisResults_2110.root
     SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_pp13TeV/ROOTfiles/MC/lowpt/AnalysisResults_23nov.root	
+    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/AnalysisResults_2110.root	
     SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
-    AcceptanceFile: ~/alice/D0_pp13TeV/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
+    AcceptanceFile: ~/alice/D0_13TeV_lowpt/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
     Meson: Dzero
 
 PtBins all:
