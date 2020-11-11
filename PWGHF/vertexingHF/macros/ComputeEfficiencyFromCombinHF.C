@@ -18,7 +18,8 @@
 enum EPtWei{kFONLL5overLHC13d3,kFONLL7overLHC10f7a,kFONLL7overLHC10f6a,kFLAToverLHC10f7a,kNoWei};
 enum EPtBWei{kFONLL5overLHC19c3,kNoPtBWei};
 
-TString configFileName="configfile4lowptanalysis.txt";
+//TString configFileName="configfile4lowptanalysis.txt";
+TString configFileName="configfile4lowptanalysis_coarse.txt";
 TString fileName="";
 TString suffixData="";
 TString fileNameMC="";
@@ -148,7 +149,9 @@ void ComputeEfficiencyFromCombinHF(){
 
 
   //  TFile* out=new TFile(Form("~/alice/D0_13TeV_lowpt/results/efficiency/PID_cuts/%s/outputEff%s.root",dataset.Data(),suffix.Data()),"recreate");
+  if(configFileName.Contains("coarse")) suffix.Append("_CoarsePt");
   TFile* out=new TFile(Form("~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/%s/outputEff%s.root",dataset.Data(),suffix.Data()),"recreate");
+
   hAccToy->Write();
   out->Close();
 

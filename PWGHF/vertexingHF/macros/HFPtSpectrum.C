@@ -51,12 +51,14 @@ enum particularity{ kTopological, kLowPt, kPP7TeVPass4, kBDT };
 
 void HFPtSpectrum ( Int_t decayChan=kD0Kpi,
 		    const char *mcfilename="~/alice/D0_13TeV_lowpt/ROOTfiles/MC/DmesonLcPredictions_13TeV_y05_FFee_BRpythia8.root",
-		    const char *efffilename="~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_Prompt_3SigPID_Pt400_YFid_PileUpMV.root",
+		    //		    const char *efffilename="~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_Prompt_3SigPID_Pt400_YFid_PileUpMV.root",
+		    const char *efffilename="~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_Prompt_3SigPID_Pt400_YFid_PileUpMV_CoarsePt.root",
 		    //		    const char *efffilename="~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/all/outputEff_Weighted_3SigPID_Pt400_YFid_PileUpMV.root",
-		    const char *recofilename="~/alice/D0_13TeV_lowpt/results/figures/all/templ/outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root",
+		    //		    const char *recofilename="~/alice/D0_13TeV_lowpt/results/figures/all/templ/outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root",
+		    const char *recofilename="~/alice/D0_13TeV_lowpt/results/figures/all/templ/coarse/outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV_CoarsePt.root",
 		    const char *recohistoname="hRawYieldRot",
 		    const char *nevhistoname="hEvForNorm",
-		    const char *outfilename="~/alice/D0_13TeV_lowpt/results/cs/HFPtSpectrum_3SigPID_Pt400_all.root",
+		    const char *outfilename="~/alice/D0_13TeV_lowpt/results/cs/HFPtSpectrum_3SigPID_Pt400_all_CoarsePt.root",
 		    Int_t fdMethod=kNb,
 		    Double_t nevents=1.0, // overriden by nevhistoname
 		    Double_t sigma=57.8e9, // sigma[pb]

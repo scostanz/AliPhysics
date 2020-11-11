@@ -1,7 +1,7 @@
 InputFiles:
-    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/AnalysisResults_2110.root
+    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC2018/AnalysisResults.root
     SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/AnalysisResults_2110.root	
+    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/LHC18l4b/AnalysisResults.root	
     SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
     AcceptanceFile: ~/alice/D0_13TeV_lowpt/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
     Meson: Dzero
@@ -9,7 +9,7 @@ InputFiles:
 PtBins:
     NumOfPtBins: 5
     BinLimits: [ 1.,2.,4.,6.,8.,12. ]
-    Rebin: [ 9,9,10,11,12 ]
+    Rebin: [ 8,8,9,8,11 ]
     MinFit: [ 1.74,1.74,1.74,1.74,1.74 ]
     MaxFit: [ 2.05,2.05,2.05,2.05,2.05 ]
 
