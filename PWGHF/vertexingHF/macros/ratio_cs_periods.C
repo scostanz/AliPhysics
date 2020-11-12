@@ -26,7 +26,7 @@ void ratio_cs_periods() {
   TH1D* h[nMax], *hr[nMax];
 
   for (Int_t i=0; i<nMax; i++) {
-    fileName[i].Form("%s%s%s.root",inputdir.Data(), fname.Data(), dataset[i].Data());
+    fileName[i].Form("%s%s%s_CoarsePt.root",inputdir.Data(), fname.Data(), dataset[i].Data());
     cout << fileName[i].Data() << endl;
 
     TFile *inFile = TFile::Open(fileName[i].Data());
@@ -95,7 +95,7 @@ void ratio_cs_periods() {
   ll->SetLineColor(kBlack);
   ll->Draw("same");
 
-  TFile *fout = new TFile(Form("%sCompare_cs_periods.root",inputdir.Data()), "RECREATE");
+  TFile *fout = new TFile(Form("%sCompare_cs_periods_CoarsePt.root",inputdir.Data()), "RECREATE");
   c->Write();
   cratio->Write();
   fout->Write();

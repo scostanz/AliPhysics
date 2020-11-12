@@ -2,7 +2,7 @@ TString effdir = "~/alice/D0_13TeV_lowpt/results/efficiency/central_cuts/";
 TString year[4] = {"2016","2017","2018","all"};
 TString subdir[4] = {"","","",""};
 TString date = "";
-TString suffix = "3SigPID_Pt400_YFid_PileUpMV";
+TString suffix = "3SigPID_Pt400_YFid_PileUpMV_CoarsePt";
 
 void ratio_eff_2016(){
 
@@ -164,7 +164,7 @@ void ratio_eff_2016(){
     hrfddw[j]->SetTitle(Form("LHC%s%s/all",year[j].Data(),subdir[j].Data()));
     hrfddw[j]->Draw("same");
   }
-  TLine *ll = new TLine(0., 1., 12., 1.);
+  TLine *ll = new TLine(1., 1., 12., 1.);
   ll->SetLineStyle(2);
   ll->SetLineColor(kBlack);
   cratiop->cd();

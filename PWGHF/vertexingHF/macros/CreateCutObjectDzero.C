@@ -4,7 +4,7 @@ class AliRDHFCutsD0toKpi;
 void CreateCutObjectDzero(TString fileout="D0toKpiNoTopolCuts_PP.root", 
 			  Int_t pileupopt=1,
 			  Int_t tpcopt=1,
-			  Int_t spd=0,
+			  Int_t spd=1,
 			  Int_t its=2,
 			  Int_t trigMask=AliVEvent::kINT7,
 			  Int_t ycut=0,

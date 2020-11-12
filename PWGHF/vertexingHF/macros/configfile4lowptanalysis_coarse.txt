@@ -1,7 +1,7 @@
 InputFiles:
-    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC2018/AnalysisResults.root
+    DataFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/LHC2016/AnalysisResults.root
     SuffixData: 3SigPID_Pt400_YFid_PileUpMV
-    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/LHC18l4b/AnalysisResults.root	
+    MCFile: ~/alice/D0_13TeV_lowpt/ROOTfiles/MC/lowpt/LHC2016/AnalysisResults.root	
     SuffixMC: _Prompt_3SigPID_Pt400_YFid_PileUpMV
     AcceptanceFile: ~/alice/D0_13TeV_lowpt/results/acceptance/Acceptance_Toy_D0Kpi_yfidPtDep_etaDau09_ptDau100_promptD0FONLL13ptshape.root
     Meson: Dzero
@@ -9,8 +9,8 @@ InputFiles:
 PtBins:
     NumOfPtBins: 5
     BinLimits: [ 1.,2.,4.,6.,8.,12. ]
-    Rebin: [ 8,8,9,8,11 ]
-    MinFit: [ 1.74,1.74,1.74,1.74,1.74 ]
+    Rebin: [ 10,10,8,8,12 ]
+    MinFit: [ 1.72,1.72,1.72,1.72,1.72 ]
     MaxFit: [ 2.05,2.05,2.05,2.05,2.05 ]
 
 SigmaConfiguration:
@@ -32,7 +32,7 @@ BackgroundOptions:
     RenormalizeLS: 1
     SmoothLS: 0
     TryDirectFit: 1
-    MinSBFit: [ 1.74,1.74,1.74,1.74,1.74 ]
+    MinSBFit: [ 1.72,1.72,1.72,1.72,1.72 ]
     MaxSBFit: [ 2.05,2.05,2.05,2.05,2.05 ]
     PolDegreeSB: [ 4,4,4,4,2 ]
 

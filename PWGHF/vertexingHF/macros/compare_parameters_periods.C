@@ -8,7 +8,7 @@ void compare_parameters_periods() {
   const Int_t nMax = 4;
 
   //  TString fname = "outputMassFits_FreeSigma_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
-  TString fname = "outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
+  TString fname = "outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV_CoarsePt.root";
   TString inputdir = "~/alice/D0_13TeV_lowpt/results/figures/";
   TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018","all"};
   TString legend[nMax] = {"2016","2017","2018","merged datasets"};
@@ -27,9 +27,9 @@ void compare_parameters_periods() {
   TH1D *hmean[nMax], *hsigma[nMax], *hsignif[nMax], *hsoverb[nMax];
 
   for (Int_t i=0; i<nMax; i++) {
-    inFile[i] = TFile::Open(Form("%s%s/templ/%s",inputdir.Data(),dataset[i].Data(), fname.Data()));
+    inFile[i] = TFile::Open(Form("%s%s/templ/coarse/%s",inputdir.Data(),dataset[i].Data(), fname.Data()));
     if (!inFile[i]) {
-      cout << "-E- Input file " << Form("%s%s/templ/%s",inputdir.Data(),dataset[i].Data(),fname.Data())<< " not found" << endl;
+      cout << "-E- Input file " << Form("%s%s/templ/coarse/%s",inputdir.Data(),dataset[i].Data(),fname.Data())<< " not found" << endl;
       exit(0);
     }
     hmean[i] = (TH1D*) inFile[i]->Get("hGausMeanRot");
@@ -108,7 +108,7 @@ void compare_parameters_periods() {
     hsoverb[i]->GetYaxis()->SetTitleOffset(1.4);
   }
   cmean->BuildLegend();
-  TLine *ll = new TLine(0,massD,12,massD);
+  TLine *ll = new TLine(1,massD,12,massD);
   ll->SetLineStyle(2);
   ll->SetLineColor(kBlack);
   cmean->cd();
@@ -117,15 +117,24 @@ void compare_parameters_periods() {
   csignif->BuildLegend();
   csoverb->BuildLegend();
 
-  TFile *fout = new TFile(Form("%sCompare_IMparameters_fixedSigma.root",inputdir.Data()), "RECREATE");
+  TCanvas *cparams  = new TCanvas("cparams","cparams",1600, 1200);
+  cparams->Divide(2,2);
+  cparams->cd(1);   cmean->DrawClonePad();
+  cparams->cd(2);   csigma->DrawClonePad();
+  cparams->cd(3);   csignif->DrawClonePad();
+  cparams->cd(4);   csoverb->DrawClonePad();
+
+
+  TFile *fout = new TFile(Form("%sCompare_IMparameters_fixedSigma_CoarsePt.root",inputdir.Data()), "RECREATE");
   cmean->Write();
   csigma->Write();
   csignif->Write();
   csoverb->Write();
+  cparams->Write();
   fout->Write();
   fout->Close();
-  cmean->Print(Form("%sComparison_mean_fixedSigma.png",inputdir.Data()));
-  csigma->Print(Form("%sComparison_sigma_fixedSigma.png",inputdir.Data()));
-  csignif->Print(Form("%sComparison_signif_fixedSigma.png",inputdir.Data()));
-  csoverb->Print(Form("%sComparison_soverb_fixedSigma.png",inputdir.Data()));
+//   cmean->Print(Form("%sComparison_mean_fixedSigma_CoarsePt.png",inputdir.Data()));
+//   csigma->Print(Form("%sComparison_sigma_fixedSigma_CoarsePt.png",inputdir.Data()));
+//   csignif->Print(Form("%sComparison_signif_fixedSigma_CoarsePt.png",inputdir.Data()));
+//   csoverb->Print(Form("%sComparison_soverb_fixedSigma_CoarsePt.png",inputdir.Data()));
 }

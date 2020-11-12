@@ -10,9 +10,34 @@ BackgroundOptions:
     MaxSBFit: [ 1.94,1.96,1.98,2.0,2.04 ]
     PolDegreeSB: [ 4,4,4,4,2 ]
 
+# all
 PtBins:
     NumOfPtBins: 5
     BinLimits: [ 1.,2.,4.,6.,8.,12. ]
     Rebin: [ 9,9,10,11,12 ]
     MinFit: [ 1.78,1.76,1.74,1.72,1.72 ]
     MaxFit: [ 1.94,1.96,1.98,2.02,2.04 ]
+
+# LHC2018
+PtBins:
+    NumOfPtBins: 5
+    BinLimits: [ 1.,2.,4.,6.,8.,12. ]
+    Rebin: [ 8,8,9,8,11 ]
+    MinFit: [ 1.72,1.72,1.72,1.72,1.72 ]
+    MaxFit: [ 2.05,2.05,2.05,2.05,2.05 ]
+
+# LHC2017
+PtBins:
+    NumOfPtBins: 5
+    BinLimits: [ 1.,2.,4.,6.,8.,12. ]
+    Rebin: [ 7,7,7,8,10 ]
+    MinFit: [ 1.72,1.72,1.72,1.72,1.72 ]
+    MaxFit: [ 2.05,2.05,2.05,2.05,2.05 ]
+
+# LHC2016
+PtBins:
+    NumOfPtBins: 5
+    BinLimits: [ 1.,2.,4.,6.,8.,12. ]
+    Rebin: [ 10,10,8,8,12 ]
+    MinFit: [ 1.72,1.72,1.72,1.72,1.72 ]
+    MaxFit: [ 2.05,2.05,2.05,2.05,2.05 ]

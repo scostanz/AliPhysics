@@ -26,7 +26,7 @@ TString fileNameMC="";
 TString suffix="";
 TString fileNameToy="";
 TString meson="Dzero";
-TString dataset="all";
+TString dataset="LHC2016";
 
 const Int_t maxPtBins=30;
 Int_t nPtBins=8;

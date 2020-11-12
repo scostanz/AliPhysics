@@ -23,7 +23,7 @@
 enum Method{kME,kRot,kLs,kSB};
 
 TString configFileName="configfile4lowptanalysis_coarse.txt";
-TString outdir="~/alice/D0_13TeV_lowpt/results/figures/LHC2018/templ/coarse";
+TString outdir="~/alice/D0_13TeV_lowpt/results/figures/all/templ/coarse";
 
 // input files and pt binning
 TString fileName="";
