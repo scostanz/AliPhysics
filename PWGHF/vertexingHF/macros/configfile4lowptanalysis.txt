@@ -9,7 +9,7 @@ InputFiles:
 PtBins:
     NumOfPtBins: 14
     BinLimits: [ 0.,0.5,1.,1.5,2.,2.5,3.,3.5,4.,5.,6.,7.,8.,10.,12. ]
-    Rebin: [ 8,5,6,7,7,9,7,9,9,11,10,12,12,12 ]
+    Rebin: [ 10,7,8,10,8,9,7,9,9,11,10,12,12,12 ]
     MinFit: [ 1.72,1.72,1.72,1.72,1.72,1.72,1.72,1.72,1.72,1.72,1.72,1.72,1.72,1.72 ]
     MaxFit: [ 2.05,2.05,2.05,2.05,2.05,2.05,2.05,2.05,2.05,2.05,2.05,2.05,2.05,2.05 ]
 
@@ -41,7 +41,7 @@ FitConfiguration:
     BackgroundFunction: 2
     PolDegreeFit: [ 3,3,2,2,2,2,2,2,2,2,2,2,2,2 ]
     CorrectForReflections: 1
-    ReflectionOption: 2gaus
+    ReflectionOption: templ
     ReflOverSignalModif: 1
     BackgroundFuncOptionForBinCount: 1
     NumOfSigmaForBinCount: 4.

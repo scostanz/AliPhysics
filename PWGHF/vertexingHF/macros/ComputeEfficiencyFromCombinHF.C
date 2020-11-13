@@ -18,15 +18,15 @@
 enum EPtWei{kFONLL5overLHC13d3,kFONLL7overLHC10f7a,kFONLL7overLHC10f6a,kFLAToverLHC10f7a,kNoWei};
 enum EPtBWei{kFONLL5overLHC19c3,kNoPtBWei};
 
-//TString configFileName="configfile4lowptanalysis.txt";
-TString configFileName="configfile4lowptanalysis_coarse.txt";
+TString configFileName="configfile4lowptanalysis.txt";
+//TString configFileName="configfile4lowptanalysis_coarse.txt";
 TString fileName="";
 TString suffixData="";
 TString fileNameMC="";
 TString suffix="";
 TString fileNameToy="";
 TString meson="Dzero";
-TString dataset="LHC2016";
+TString dataset="all/V0100range";
 
 const Int_t maxPtBins=30;
 Int_t nPtBins=8;
