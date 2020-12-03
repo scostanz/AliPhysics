@@ -23,7 +23,7 @@
 enum Method{kME,kRot,kLs,kSB};
 
 TString configFileName="configfile4lowptanalysis.txt";
-TString outdir="~/alice/D0_13TeV_lowpt/results/figures/all/templ/V0100range";
+TString outdir="~/alice/D0_13TeV_lowpt/results/figures/all/notempl";
 
 // input files and pt binning
 TString fileName="";

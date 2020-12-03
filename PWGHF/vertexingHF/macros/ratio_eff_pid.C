@@ -32,15 +32,18 @@ void ratio_eff_pid() {
   const Int_t nMax = 5;
 
   TString fname = "outputEff_Prompt_";
-  TString inputdir = "~/alice/D0_pp13TeV/results/efficiency/PID_cuts/LHC2016/";
+  TString inputdir = "~/alice/D0_13TeV_lowpt/results/efficiency/pidcuts/";
 //   TString dataset[nMax] = {"23SigPID_Pt400_YFid_PileUpMV","2SigPID_Pt400_YFid_PileUpMV","32SigPID_Pt400_YFid_PileUpMV","3SigPID_Pt400_YFid_PileUpMV"};
-//   TString legend[nMax] = {"2#sigma TPC 3#sigma TOF, p_{T} 400 MeV/c","2#sigma TPC 2#sigma TOF, p_{T} 400 MeV/c","3#sigma TPC 2#sigma TOF, p_{T} 400 MeV/c","central cuts"};
+//   TString legend[nMax] = {"2#sigma TPC 3#sigma TOF, p_{T} 400 MeV/c","2#sigma TPC 2#sigma TOF, p_{T} 400 MeV/c","3#sigma TPC 2#sigma TOF, p_{T} 400 MeV/c","3#sigma PID, p_{T} 400 MeV/c"};
+//  TString legend[nMax] = {"s23","s2", "s32","s3"};
+
   TString dataset[nMax] = {"3SigPID_Pt300_YFid_PileUpMV","3SigPID_Pt300_YFid_PileUpMV_SPDoff","3SigPID_Pt400_YFid_PileUpMV_SPDoff","NoPID_Pt400_YFid_PileUpMV","3SigPID_Pt400_YFid_PileUpMV"};
-  TString legend[nMax] = {"3#sigma PID, p_{T} 300 MeV/c","3#sigma PID, p_{T} 300 MeV/c, SPDoff","3#sigma PID, p_{T} 400 MeV/c, SPDoff","No PID, p_{T} 400 MeV/c", "central cuts"};
+  TString legend[nMax] = {"3#sigma PID, p_{T} 300 MeV/c","3#sigma PID, p_{T} 300 MeV/c, SPDoff","3#sigma PID, p_{T} 400 MeV/c, SPDoff","No PID, p_{T} 400 MeV/c", "3#sigma PID, p_{T} 400 MeV/c"};
+  //  TString legend[nMax] = {"s3MeV300","s3MeV300SPDoff","s3MeV400SPDoff","NoPID400", "s3MeV400"};
 
   TCanvas *c = new TCanvas(hName, hName, 800, 600);
 
-  TString hNameR = Form("%sratioToCentral",hName.Data());
+  TString hNameR = Form("%sratioToStandard",hName.Data());
 
   TString fileName[nMax];  
   Double_t max[nMax] = {0.};
@@ -111,8 +114,8 @@ void ratio_eff_pid() {
     hr[i]->SetStats(0);
     hr[i]->GetXaxis()->SetTitle("p_{T} (GeV/c)");
     hr[i]->GetYaxis()->SetTitle(Form("%s ratio",title.Data()));
-    hr[i]->SetName(Form("%s/ central cuts",legend[i].Data()));
-    hr[i]->SetTitle(Form("%s/ central cuts",legend[i].Data()));
+    hr[i]->SetName(Form("%s/ standard cuts",legend[i].Data()));
+    hr[i]->SetTitle(Form("%s/ standard cuts",legend[i].Data()));
   }
   cratio->BuildLegend();
 
@@ -121,7 +124,7 @@ void ratio_eff_pid() {
   ll->SetLineColor(kBlack);
   ll->Draw("same");
 
-  TFile *fout = new TFile(Form("%sCompare_%s.root",inputdir.Data(),title.Data()), "RECREATE");
+  TFile *fout = new TFile(Form("%sCompare_set2_%s.root",inputdir.Data(),title.Data()), "RECREATE");
   c->Write();
   cratio->Write();
   fout->Write();

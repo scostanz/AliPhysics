@@ -14,8 +14,8 @@ Double_t coarsebins[maxPtBins+1]={1.,2.,4.,6.,8.,12.};
 TH1D* MakeRatio(TH1D* hNum, TH1D* hDen);
 
 void MakeRatioCS() {
-  TString filename1 = "HFPtSpectrum_3SigPID_Pt400_all_CoarsePt.root";
-  TString filename2 = "Cristina_HFPtSpectrum_D0_multInt_MB_final.root";
+  TString filename1 = "~/alice/D0_13TeV_lowpt/results/cs/HFPtSpectrum_3SigPID_Pt400_all_CoarsePt.root";
+  TString filename2 = "~/alice/D0_13TeV_lowpt/results/cs/Cristina_HFPtSpectrum_D0_multInt_MB_final.root";
 
   Int_t nPtBins=5;
 
@@ -37,12 +37,12 @@ void MakeRatioCS() {
 
   TH1D* hRatioRebinned=MakeRatio(hReb,hCoarse);
   hRatioRebinned->SetTitle("");
-  hRatioRebinned->GetYaxis()->SetTitle("Ratio Xsec low_pt-rebinned/standard analysis");
+  hRatioRebinned->GetYaxis()->SetTitle("Ratio Xsec low_pt/standard analysis");
   hRatioRebinned->GetYaxis()->SetTitleOffset(1.5);
   hRatioRebinned->SetMarkerStyle(20);
   hRatioRebinned->SetMarkerColor(kGreen);
   hRatioRebinned->SetLineColor(kGreen);
-  hRatioRebinned->SetName("low_pt-rebinned/standard");
+  hRatioRebinned->SetName("low_pt/standard");
   hRatioRebinned->GetYaxis()->SetRangeUser(0.5,1.5);
 
   TCanvas * ccheck=new TCanvas("ccheck","",1200,800);
@@ -51,8 +51,8 @@ void MakeRatioCS() {
   hReb->SetLineColor(kRed);
   hReb->SetMarkerColor(kRed);
   hReb->SetMarkerStyle(3);
-  hReb->SetName("lowpt_rebinned");
-  hReb->SetTitle("lowpt_rebinned");
+  hReb->SetName("lowpt");
+  hReb->SetTitle("lowpt");
   hReb->Draw();
   hCoarse->Draw("same");
   gPad->BuildLegend();
@@ -64,7 +64,7 @@ void MakeRatioCS() {
   l->Draw("same");
 
   TString outfilnam=filename1;
-  outfilnam.ReplaceAll(".root","-RatioRebinned.root");
+  outfilnam.ReplaceAll(".root","-Ratio.root");
   TFile *filout=new TFile(outfilnam.Data(),"recreate");
   hRatioRebinned->Write();
   ccheck->Write();
@@ -142,7 +142,8 @@ TH1D* MakeRatio(TH1D* hNum, TH1D* hDen){
       hRat->SetBinContent(iB,ratio);
       //      cout<< " set bin error al rtio " << eratio << endl;
       hRat->SetBinError(iB,eratio);
-      printf("Bin %d   %f\n",iB,ratio);
+      cout << "Bin [" << coarsebins[iB-1] << "," << coarsebins[iB] << "]\t " << ratio << "\t" << TMath::Abs(1-ratio)*100. << "%" << endl;
+      //      printf("Bin %d   %f\n",iB,ratio);
     } 
   }
 

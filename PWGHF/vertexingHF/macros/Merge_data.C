@@ -2,7 +2,7 @@ void SaveStats();
 
 TString inputdir = "~/alice/D0_13TeV_lowpt/ROOTfiles/data/lowpt/";
 TString dir[4] = {"LHC2016_deghjop","LHC2016_kl","LHC2017","LHC2018"};
-TString date = "";
+TString date = "pidcuts";
 
 void Merge_data(){
   

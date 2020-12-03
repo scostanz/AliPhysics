@@ -1,6 +1,6 @@
 #include <TH1D.h>
 
-void ratio_cs_periods() {
+void ratio_cs_templates() {
 
   gStyle->SetOptTitle(0);
 
@@ -11,22 +11,22 @@ void ratio_cs_periods() {
   TString hName = "histoSigmaCorr";
   TString title = "d#sigma/dp_{T} (pb/GeV/c^{2})";
 
-  const Int_t nMax = 4;
+  const Int_t nMax = 5;
 
-  TString fname = "HFPtSpectrum_3SigPID_Pt400_";
-  TString inputdir = "~/alice/D0_13TeV_lowpt/results/cs/";
-  TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018","all"};
-  TString legend[nMax] = {"2016","2017","2018","merged datasets"};
+  TString fname = "HFPtSpectrum_3SigPID_Pt400_all_";
+  TString inputdir = "~/alice/D0_13TeV_lowpt/results/cs/sys_templ/";
+  TString dataset[nMax] = {"norefl","2gaus","templX2","templHalf","templ" };
+  TString legend[nMax] = {"no reflections", "2gaus fit", "2*template", "0.5*template", "template"};
   TCanvas *c = new TCanvas(hName, hName, 800, 600);
 
-  TString hNameR = Form("%sratioToTotal",hName.Data());
+  TString hNameR = Form("%sratioToTempl",hName.Data());
   TString fileName[nMax];  
   Double_t max[nMax] = {0.};
   Int_t cset[nMax];
   TH1D* h[nMax], *hr[nMax];
 
   for (Int_t i=0; i<nMax; i++) {
-    fileName[i].Form("%s%s%s_CoarsePt.root",inputdir.Data(), fname.Data(), dataset[i].Data());
+    fileName[i].Form("%s%s%s.root",inputdir.Data(), fname.Data(), dataset[i].Data());
     cout << fileName[i].Data() << endl;
 
     TFile *inFile = TFile::Open(fileName[i].Data());
@@ -44,14 +44,14 @@ void ratio_cs_periods() {
     h[i]->SetMarkerStyle(20+i);
     switch(i) {
     case 0:  h[i]->SetLineColor(kBlue);      h[i]->SetMarkerColor(kBlue);      break;
-    case 1:  h[i]->SetLineColor(kGreen);     h[i]->SetMarkerColor(kGreen);     break;
-    case 2:  h[i]->SetLineColor(kRed);       h[i]->SetMarkerColor(kRed);       break;
-    case 3:  h[i]->SetLineColor(kBlack);     h[i]->SetMarkerColor(kBlack);  h[i]->SetMarkerStyle(3);        break;
+    case 1:  h[i]->SetLineColor(kRed);       h[i]->SetMarkerColor(kRed);       break;
+    case 2:  h[i]->SetLineColor(kGreen);     h[i]->SetMarkerColor(kGreen);     break;
+    case 3:  h[i]->SetLineColor(kMagenta);   h[i]->SetMarkerColor(kMagenta);   break;
+    case 4:  h[i]->SetLineColor(kBlack);     h[i]->SetMarkerColor(kBlack);  h[i]->SetMarkerStyle(3);        break;
     }
     h[i]->SetLineWidth(1);
     c->cd();
     h[i]->GetXaxis()->SetRangeUser(0., 12.);
-    //    h[i]->GetYaxis()->SetRangeUser(0., 45e6);
     h[i]->Draw("PESAME");
     h[i]->SetTitle("");
     h[i]->SetStats(0);
@@ -66,8 +66,8 @@ void ratio_cs_periods() {
   TH1D *href = (TH1D*) h[nMax-1]->Clone();
   for (Int_t i=0; i<nMax-1; i++) {
     hr[i] = (TH1D*)h[i]->Clone();
-//     hr[i]->Divide(h[i],href,1,1,"B");
-    hr[i]->Divide(h[i],href,1,1,"");
+    hr[i]->Divide(h[i],href,1,1,"B");
+    //    hr[i]->Divide(h[i],href,1,1,"");
     hr[i]->SetMarkerStyle(20+i);
     hr[i]->SetLineWidth(1);
     switch(i) {
@@ -86,8 +86,8 @@ void ratio_cs_periods() {
     hr[i]->SetStats(0);
     hr[i]->GetXaxis()->SetTitle("p_{T} (GeV/c)");
     hr[i]->GetYaxis()->SetTitle(Form("%s ratio",title.Data()));
-    hr[i]->SetName(Form("%s/merged",legend[i].Data()));
-    hr[i]->SetTitle(Form("%s/merged",legend[i].Data()));
+    hr[i]->SetName(Form("%s/templ",legend[i].Data()));
+    hr[i]->SetTitle(Form("%s/templ",legend[i].Data()));
   }
   cratio->BuildLegend();
 
@@ -97,7 +97,7 @@ void ratio_cs_periods() {
   ll->SetLineColor(kBlack);
   ll->Draw("same");
 
-  TFile *fout = new TFile(Form("%sCompare_cs_periods_CoarsePt.root",inputdir.Data()), "RECREATE");
+  TFile *fout = new TFile(Form("%sCompare_cs_templates.root",inputdir.Data()), "RECREATE");
   c->Write();
   cratio->Write();
   fout->Write();

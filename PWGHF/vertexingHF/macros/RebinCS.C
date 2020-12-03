@@ -10,16 +10,17 @@
 #endif
 
 
-const Int_t maxPtBins=5;
-Double_t coarsebins[maxPtBins+1]={1.,2.,4.,6.,8.,12.};
+const Int_t maxPtBins=8;
+Double_t coarsebins[maxPtBins+1]={1.,2.,3.,4.,5.,6.,8.,10.,12.};
 TH1D* MakeRatio(TH1D* hNum, TH1D* hDen);
 
 void RebinCS() {
 
-  TString filenameFine = "HFPtSpectrum_3SigPID_Pt400_all.root";
-  TString filenameCoarse = "Cristina_HFPtSpectrum_D0_multInt_MB_final.root";
+  TString filenameFine = "~/alice/D0_13TeV_lowpt/results/cs/HFPtSpectrum_3SigPID_Pt400_all_V0100range.root";
+  TString filenameCoarse = "~/alice/D0_13TeV_lowpt/results/cs/Cristina_HFPtSpectrum_D0_multInt_V0100_finer.root";
+  
   Int_t mesCode=0;
-  Int_t nPtBins=5;
+  Int_t nPtBins=8;
 
   TFile* filF=new TFile(filenameFine.Data());
   TH1D* hFine=(TH1D*)filF->Get("histoSigmaCorr");
@@ -44,7 +45,6 @@ void RebinCS() {
       Double_t bwFine=hFine->GetBinWidth(iBf);
       if(ptFineL>=ptRebL && ptFineH<=ptRebH){
 	sum+=hFine->GetBinContent(iBf)*bwFine;
-  cout<< " sum " << sum <<endl;
 	sume2+=hFine->GetBinError(iBf)*hFine->GetBinError(iBf)*bwFine*bwFine;
 	nRebs++;
 	printf("Add bin %d (%.1f-%.1f) to coarse bin %d (%.1f-%.1f)\n",iBf,ptFineL,ptFineH,iB,ptRebL,ptRebH);
@@ -91,7 +91,7 @@ void RebinCS() {
   l->Draw("same");
 
   TString outfilnam=filenameFine;
-  outfilnam.ReplaceAll(".root","-Rebinned.root");
+  outfilnam.ReplaceAll(".root","-Rebinned_V0100.root");
   TFile *filout=new TFile(outfilnam.Data(),"recreate");
   hReb->Write();
   hRatioRebinned->Write();
@@ -163,12 +163,13 @@ TH1D* MakeRatio(TH1D* hNum, TH1D* hDen){
       eRelDen=TMath::Sqrt(sum2)/bw;
       eRelDen/=yDen;
     }
-    printf("Bin %d   Num=%f+-%f   Den=%f+-%f\n",iB,yNum,eRelNum*yNum,yDen,eRelDen*yDen);
+    //    printf("Bin %d   Num=%f+-%f   Den=%f+-%f\n",iB,yNum,eRelNum*yNum,yDen,eRelDen*yDen);
     if(yNum>0 && yDen>0){
       Double_t ratio=yNum/yDen;
       Double_t eratio=0.0000001;
       hRat->SetBinContent(iB,ratio);
-      cout<< " set bin error al rtio " << eratio << endl;
+      cout << "Bin [" << coarsebins[iB-1] << "," << coarsebins[iB] << "]\t " << ratio << "\t" << TMath::Abs(1-ratio)*100. << "%" << endl;
+      //      cout<< " set bin error al rtio " << eratio << endl;
       hRat->SetBinError(iB,eratio);
     } 
   }
