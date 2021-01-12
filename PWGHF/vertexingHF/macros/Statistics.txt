@@ -1,0 +1,11 @@
+Statistics in trains - runs: LHC2016_deghjop - LHC2016_kl - LHC2017 - LHC2018
+		 Nevents	 read (M)	 selected (M)
+LHC2016_deghjop		 949.629       286.419
+LHC2016_kl		 716.143       112.465
+LHC2017	3145.300       572.929
+LHC2018	3894.776       668.739
+		Percentages	 read (M)	 selected (M)
+LHC2016_deghjop		  10.91%        17.46%
+LHC2016_kl		   8.23%         6.86%
+LHC2017	  36.13%        34.92%
+LHC2018	  44.74%        40.76%

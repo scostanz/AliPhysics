@@ -7,14 +7,14 @@ void ratio_cs_pid() {
   TString hName = "histoSigmaCorr";
   TString title = "d#sigma/dp_{T} (pb/GeV/c^{2})";
 
-  const Int_t nMax = 5;
+  const Int_t nMax = 4;
 
   TString fname = "HFPtSpectrum_";
-  TString inputdir = "~/alice/D0_pp13TeV/results/cs/sys_PID/";
-//   TString dataset[nMax] = {"23SigPID_Pt400","2SigPID_Pt400","32SigPID_Pt400","3SigPID_Pt400"};
-//   TString legend[nMax] = {"2#sigma TPC 3#sigma TOF, p_{T} 400 MeV/c","2#sigma TPC 2#sigma TOF, p_{T} 400 MeV/c","3#sigma TPC 2#sigma TOF, p_{T} 400 MeV/c","central cuts"};
-  TString dataset[nMax] = {"3SigPID_Pt300","3SigPID_Pt300_SPDoff","3SigPID_Pt400_SPDoff","NoPID_Pt400","3SigPID_Pt400"};
-  TString legend[nMax] = {"3#sigma PID, p_{T} 300 MeV/c","3#sigma PID, p_{T} 300 MeV/c, SPDoff","3#sigma PID, p_{T} 400 MeV/c, SPDoff","No PID, p_{T} 400 MeV/c", "central cuts"};
+  TString inputdir = "~/alice/D0_13TeV_lowpt/results/cs/pidcuts/";
+  TString dataset[nMax] = {"23SigPID_Pt400","2SigPID_Pt400","32SigPID_Pt400","3SigPID_Pt400"};
+  TString legend[nMax] = {"2#sigma TPC 3#sigma TOF, p_{T} 400 MeV/c","2#sigma TPC 2#sigma TOF, p_{T} 400 MeV/c","3#sigma TPC 2#sigma TOF, p_{T} 400 MeV/c","central cuts"};
+//   TString dataset[nMax] = {"3SigPID_Pt300","3SigPID_Pt300_SPDoff","3SigPID_Pt400_SPDoff","NoPID_Pt400","3SigPID_Pt400"};
+//   TString legend[nMax] = {"3#sigma PID, p_{T} 300 MeV/c","3#sigma PID, p_{T} 300 MeV/c, SPDoff","3#sigma PID, p_{T} 400 MeV/c, SPDoff","No PID, p_{T} 400 MeV/c", "central cuts"};
 
   TCanvas *c = new TCanvas(hName, hName, 800, 600);
 
@@ -26,7 +26,7 @@ void ratio_cs_pid() {
   TH1D* h[nMax], *hr[nMax];
 
   for (Int_t i=0; i<nMax; i++) {
-    fileName[i].Form("%s%s%s_2018.root",inputdir.Data(), fname.Data(), dataset[i].Data());
+    fileName[i].Form("%s%s%s.root",inputdir.Data(), fname.Data(), dataset[i].Data());
     cout << fileName[i].Data() << endl;
 
     TFile *inFile = TFile::Open(fileName[i].Data());
@@ -99,11 +99,11 @@ void ratio_cs_pid() {
   ll->SetLineColor(kBlack);
   ll->Draw("same");
 
-  TFile *fout = new TFile(Form("%s/comparison/Compare_cs_pid2_2018.root",inputdir.Data()), "RECREATE");
+  TFile *fout = new TFile(Form("%scomparison/Compare_cs_pid1.root",inputdir.Data()), "RECREATE");
   c->Write();
   cratio->Write();
-  c->SaveAs(Form("%s/comparison/Compare_cs_pid2_2018.png",inputdir.Data()));
-  cratio->SaveAs(Form("%s/comparison/Ratio_cs_pid2_2018.png",inputdir.Data()));
+//   c->SaveAs(Form("%s/comparison/Compare_cs_pid2.png",inputdir.Data()));
+//   cratio->SaveAs(Form("%s/comparison/Ratio_cs_pid2.png",inputdir.Data()));
   fout->Write();
   fout->Close();
 }

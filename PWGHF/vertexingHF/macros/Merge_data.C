@@ -28,7 +28,7 @@ void Merge_data(){
   
   TFileMerger mga;
   mga.AddObjectNames(dirtomerge.Data());
-  mga.OutputFile(Form("%sAnalysisResults.root",inputdir.Data()));
+  mga.OutputFile(Form("%sAnalysisResults_pidcuts.root",inputdir.Data()));
   for (int i=0; i<4;i++) {
     cout << "Adding file " << Form("%s%s/%s/AnalysisResults.root",inputdir.Data(),dir[i].Data(),date.Data()) << endl;
     mga.AddFile(Form("%s%s/%s/AnalysisResults.root",inputdir.Data(),dir[i].Data(),date.Data()));

@@ -7,8 +7,8 @@ void compare_parameters_periods() {
 
   const Int_t nMax = 4;
 
-  //  TString fname = "outputMassFits_FreeSigma_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
-  TString fname = "outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
+  TString fname = "outputMassFits_FreeSigma_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
+  //  TString fname = "outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
   TString inputdir = "~/alice/D0_13TeV_lowpt/results/figures/";
   TString dataset[nMax] = {"LHC2016","LHC2017","LHC2018","all"};
   TString legend[nMax] = {"2016","2017","2018","merged datasets"};
@@ -25,9 +25,9 @@ void compare_parameters_periods() {
   TH1D *hmean[nMax], *hsigma[nMax], *hsignif[nMax], *hsoverb[nMax];
 
   for (Int_t i=0; i<nMax; i++) {
-    inFile[i] = TFile::Open(Form("%s%s/templ/V0100range/%s",inputdir.Data(),dataset[i].Data(), fname.Data()));
+    inFile[i] = TFile::Open(Form("%s%s/templ/V0100range/sigmaFree/%s",inputdir.Data(),dataset[i].Data(), fname.Data()));
     if (!inFile[i]) {
-      cout << "-E- Input file " << Form("%s%s/templ/V0100range/%s",inputdir.Data(),dataset[i].Data(),fname.Data())<< " not found" << endl;
+      cout << "-E- Input file " << Form("%s%s/templ/V0100range/sigmaFree/%s",inputdir.Data(),dataset[i].Data(),fname.Data())<< " not found" << endl;
       exit(0);
     }
     hmean[i] = (TH1D*) inFile[i]->Get("hGausMeanRot");
@@ -123,7 +123,7 @@ void compare_parameters_periods() {
   cparams->cd(4);   csoverb->DrawClonePad();
 
 
-  TFile *fout = new TFile(Form("%sCompare_IMparameters_fixedSigma_V0100range.root",inputdir.Data()), "RECREATE");
+  TFile *fout = new TFile(Form("%sCompare_IMparameters_freeSigma_V0100range.root",inputdir.Data()), "RECREATE");
   cmean->Write();
   csigma->Write();
   csignif->Write();

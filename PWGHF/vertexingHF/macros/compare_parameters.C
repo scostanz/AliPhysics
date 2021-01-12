@@ -5,9 +5,9 @@ void compare_parameters() {
   
   gStyle->SetOptTitle(0);
 
-  //  TString fname = "outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
-  TString fname = "outputMassFits_FreeSigma_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
-  TString inputdir = "~/alice/D0_pp13TeV/results/figures/all/templ/freeSigma/";
+  TString fname = "outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
+  //  TString fname = "outputMassFits_FreeSigma_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
+  TString inputdir = "~/alice/D0_13TeV_lowpt/results/figures/all/templ/V0100range/";
 
   TString hsuffix[4] = {"Rot","LS","ME","SB"};
 
@@ -115,6 +115,14 @@ void compare_parameters() {
   csignif->BuildLegend();
   csoverb->BuildLegend();
 
+  TCanvas *call = new TCanvas("call","call", 1200,800);
+  call->Divide(2,2);
+  call->cd(1); cmean->DrawClonePad();
+  call->cd(2); csigma->DrawClonePad();
+  call->cd(3); csignif->DrawClonePad();
+  call->cd(4); csoverb->DrawClonePad();
+  call->Draw();
+			      
   TFile *fout = new TFile(Form("%sCompare_IMparameters.root",inputdir.Data()), "RECREATE");
   cmean->Write();
   csigma->Write();
@@ -122,8 +130,8 @@ void compare_parameters() {
   csoverb->Write();
   fout->Write();
   fout->Close();
-  cmean->Print(Form("%sComparison_mean.png",inputdir.Data()));
-  csigma->Print(Form("%sComparison_sigma.png",inputdir.Data()));
-  csignif->Print(Form("%sComparison_signif.png",inputdir.Data()));
-  csoverb->Print(Form("%sComparison_soverb.png",inputdir.Data()));
+//   cmean->Print(Form("%sComparison_mean.png",inputdir.Data()));
+//   csigma->Print(Form("%sComparison_sigma.png",inputdir.Data()));
+//   csignif->Print(Form("%sComparison_signif.png",inputdir.Data()));
+//   csoverb->Print(Form("%sComparison_soverb.png",inputdir.Data()));
 }

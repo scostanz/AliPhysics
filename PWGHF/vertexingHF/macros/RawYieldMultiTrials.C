@@ -15,18 +15,18 @@
 #endif
 
 
-TString fileName="outputMassFits_FixedSigmaAll_Refl_010V0M_Pt400_SPDany_3SigPIDnSigmaTuned_FidY.root";
+TString fileName="~/alice/D0_13TeV_lowpt/results/figures/all/templ/V0100range/outputMassFits_FixedSigmaAll_Refl_3SigPID_Pt400_YFid_PileUpMV.root";
 const Int_t nRebinSteps=4;
 Int_t rebinStep[nRebinSteps]={3,4,5,6};
 const Int_t nMinMassSteps=6;
 Double_t minMassStep[nMinMassSteps]={1.68,1.70,1.72,1.74,1.76,1.78};
 const Int_t nMaxMassSteps=6;
-Double_t maxMassStep[nMinMassSteps]={2.04,2.02,2.00,1.98,1.96,1.94};
+Double_t maxMassStep[nMinMassSteps]={2.10,2.07,2.05,2.02,2.00,1.98};
 
 const Int_t nMinMassStepsSB=4;
 Double_t minMassStepSB[nMinMassStepsSB]={1.72,1.74,1.76,1.78};
 const Int_t nMaxMassStepsSB=4;
-Double_t maxMassStepSB[nMinMassStepsSB]={2.02,2.00,1.98,1.96};
+Double_t maxMassStepSB[nMinMassStepsSB]={2.05,2.02,2.00,1.98};
 
 const Int_t nStepsBC=11;
 Double_t nSigmasBC[nStepsBC]={2.0,2.5,3.0,3.5,4.0,
@@ -48,12 +48,12 @@ Double_t sigmas[20]={0.0076,0.0079,0.0082,0.0086,0.0090,
 		     0.0150,0.0150,0.0150,0.0150,0.0150};
 
 
-void RawYieldMultiTrials(Int_t iPtBin=0, TString bkg="ME", Int_t optOutRoot=1);
+void RawYieldMultiTrials(Int_t iPtBin=5, TString bkg="Rot", Int_t optOutRoot=2);
 
 void DoAll(Int_t iPtBin=0){
-  //  RawYieldMultiTrials(iPtBin,"Rot",1);
+  RawYieldMultiTrials(iPtBin,"Rot",2);
   //  RawYieldMultiTrials(iPtBin,"LS",2);
-  RawYieldMultiTrials(iPtBin,"ME",1);
+  //  RawYieldMultiTrials(iPtBin,"ME",2);
   //  RawYieldMultiTrials(iPtBin,"SB",2);
 }
   

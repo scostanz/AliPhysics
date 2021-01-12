@@ -23,7 +23,7 @@
 enum Method{kME,kRot,kLs,kSB};
 
 TString configFileName="configfile4lowptanalysis.txt";
-TString outdir="~/alice/D0_13TeV_lowpt/results/figures/all/notempl";
+TString outdir="~/alice/D0_13TeV_lowpt/results/figures/all/templ/V0100range";
 
 // input files and pt binning
 TString fileName="";
@@ -1687,6 +1687,10 @@ void ProjectCombinHFAndFit(){
   hInvMassHistoBinWidthLS->Write();
   hInvMassHistoBinWidthME->Write();
   hInvMassHistoBinWidthSB->Write();
+  hRatioSBToRot->Write();
+  hRatioMEToRot->Write();
+  hRatioRotToRot->Write();
+  hRatioLSToRot->Write();
   hRebin->Write();
   hBkgFitFunc->Write();
   hBkgFitFuncSB->Write();
